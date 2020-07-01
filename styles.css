@@ -20,7 +20,7 @@
 }
 
 .header {
-  height: 120px;
+  min-height: 120px;
   padding-top: 46px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   box-sizing: border-box;
@@ -35,7 +35,6 @@
 .header__logo {
   width: 144px;
   height: 32px;
-  background: center / contain url(./images/logo.svg) no-repeat;
 }
 
 .main {
@@ -219,6 +218,21 @@
 }
 
 @media screen and (max-width: 600px) {
+  .header {
+    min-height: 84px;
+    padding-top: 28px;
+  }
+
+  .header__narrow {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  
+  .header__logo {
+    width: 104px;
+    height: 24px;
+  }
+  
   .profile {
     flex-direction: column;
     margin-bottom: 36px;
