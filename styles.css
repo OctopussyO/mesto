@@ -36,7 +36,6 @@
   width: 144px;
   height: 32px;
   background: center / contain url(./images/logo.svg) no-repeat;
-
 }
 
 .main {
@@ -55,29 +54,46 @@
   height: 120px;
   border-radius: 50%;
   background: top / cover url(./images/konuhov.jpg);
+  flex-shrink: 0;
 }
 
 .profile__data {
   color: #fff;
   margin-left: 30px;
   margin-right: 30px;
-  flex-grow: 10;
+  flex-grow: 2;
+  display: grid;
+  grid-template-columns: fit-content(100%) 24px;
+  grid-template-rows: 2fr 1fr;
+  grid-gap: 8px 16px;
+  grid-template-areas: 'name edit'
+            'profession profession';
+  justify-content: start;
+  align-items: baseline;
 }
 
 .profile__name {
+  grid-area: name;
   font-size: 42px;
   line-height: 1.33;
   font-weight: 500;
   display: inline-block;
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__profession {
+  grid-area: profession;
   font-size: 18px;
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__btn {
@@ -87,6 +103,7 @@
 }
 
 .profile__btn_action_edit {
+  grid-area: edit;
   width: 24px;
   height: 24px;
   background-image: url(./images/icon-pencil.svg);
@@ -94,7 +111,7 @@
   background-repeat: no-repeat;
   background-size: auto 50%;
   display: inline-block;
-  margin-left: 16px;
+  /* margin-left: 16px; */
 }
 
 .profile__btn_action_add {
@@ -104,18 +121,20 @@
   background-image: url(./images/icon-plus.svg);
   background-position: center;
   background-repeat: no-repeat;
+  background-size: auto 40%;
+  flex-shrink: 0;
 }
 
 .gallery {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 282px));
-  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
   grid-gap: 21px 18px;
 }
 
 .card {
   margin: 0;
+  max-width: 282px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -167,6 +186,11 @@
 .footer {
   margin-top: 64px;
   margin-bottom: 60px;
+}
+
+.footer__copyright {
+  margin-top: 0;
+  margin-bottom: 0;
   color: #545454;
   font-size: 18px;
   line-height: 1.2;
@@ -177,5 +201,48 @@
     padding-left: 19px;
     padding-right: 19px;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 356px;
+  }
+
+  .profile__name {
+    font-size: 27px;
+  }
+
+  .profile__profession {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile {
+    flex-direction: column;
+    margin-bottom: 36px;
+  }
+
+  .profile__btn_action_add {
+    width: 100%;
+    background-size: ;
+  }
+
+  .profile__data {
+    grid-gap: 5px;
+    margin: 28px 0 32px;
+  }
+  .profile__profession {
+    text-align: center;
+  }
+
+  .footer {
+    margin-top: 48px;
+    margin-bottom: 36px;
+  }
+
+  .footer__copyright {
+    font-size: 14px;
   }
 }
