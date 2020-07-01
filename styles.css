@@ -110,7 +110,6 @@
   background-repeat: no-repeat;
   background-size: auto 50%;
   display: inline-block;
-  /* margin-left: 16px; */
 }
 
 .profile__btn_action_add {
@@ -238,13 +237,19 @@
     margin-bottom: 36px;
   }
 
+  .profile__btn_action_edit {
+    grid-area: edit;
+    width: 18px;
+    height: 18px;
+  }
+
   .profile__btn_action_add {
     width: 100%;
     background-size: ;
   }
 
   .profile__data {
-    grid-gap: 5px;
+    grid-gap: 5px 8px;
     margin: 28px 0 32px;
   }
   .profile__profession {
