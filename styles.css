@@ -41,7 +41,6 @@
 
 .main {
   width: 100%;
-  height: 500px;
 }
 
 .profile {
@@ -68,10 +67,10 @@
 .profile__name {
   font-size: 42px;
   line-height: 1.33;
-  font-weight: 500px;
+  font-weight: 500;
   display: inline-block;
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .profile__profession {
@@ -107,8 +106,70 @@
   background-repeat: no-repeat;
 }
 
-.footer {
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 282px));
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-gap: 21px 18px;
+}
 
+.card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.card__image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9% 6%;
+  box-sizing: border-box;
+}
+
+.card__heading {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: calc(100% - 20px);
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.card__reaction {
+  width: 20px;
+  height: 18px;
+  background: center / cover url(./images/icon-heart.svg) no-repeat;
+}
+
+.footer {
+  margin-top: 64px;
+  margin-bottom: 60px;
+  color: #545454;
+  font-size: 18px;
+  line-height: 1.2;
 }
 
 @media screen and (max-width: 920px) {
