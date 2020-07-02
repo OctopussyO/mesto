@@ -18,10 +18,10 @@
         <div class="profile__image"></div>
         <div class="profile__data">
           <h1 class="profile__name">Фёдор Конюхов</h1>
-          <button class="profile__btn profile__btn_action_edit"></button>
+          <button class="profile__btn profile__btn_action_edit page__button"></button>
           <p class="profile__profession">Российский путешественник</p>
         </div>
-        <button class="profile__btn profile__btn_action_add"></button>
+        <button class="profile__btn profile__btn_action_add page__button"></button>
       </section>
       <section class="gallery">
         <figure class="card">
@@ -84,6 +84,17 @@
     <footer class="footer page__narrow">
       <p class="footer__copyright">&copy;&nbsp;2020 Mesto Russia</p>
     </footer>
+  </div>
+  <div action="" class="popup">
+    <form class="popup__container">
+      <fieldset class="popup__fieldset">
+        <legend class="popup__heading">Редактировать профиль</legend>
+        <input type="text" class="popup__input popup__input_el_name">
+        <input type="text" class="popup__input popup__input_el_profession">
+      </fieldset>
+      <button class="popup__save-button page__button">Сохранить</button>
+      <button class="popup__close-button page__button"></button>
+    </form>
   </div>
 </body>
 </html
