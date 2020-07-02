@@ -19,6 +19,19 @@
   padding-right: 19px;
 }
 
+.page__button {
+  transition: .2s linear;
+}
+
+.page__button:focus {
+  outline: none;
+}
+
+.page__button:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
 .header {
   min-height: 120px;
   padding-top: 46px;
@@ -201,7 +214,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
-  /* display: none; */
+  display: none;
 }
 
 .popup__container {
