@@ -3,5 +3,6 @@
   height: 120px;
   border-radius: 50%;
   background: top / cover url(../../../images/konuhov.jpg);
-  flex-shrink: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }

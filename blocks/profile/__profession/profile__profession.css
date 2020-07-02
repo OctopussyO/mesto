@@ -4,7 +4,8 @@
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
