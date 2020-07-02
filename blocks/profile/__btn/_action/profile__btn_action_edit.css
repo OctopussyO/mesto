@@ -1,0 +1,18 @@
+.profile__btn_action_edit {
+  grid-area: edit;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../../images/icon-pencil.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 50%;
+  display: inline-block;
+}
+
+@media screen and (max-width: 600px) {
+  .profile__btn_action_edit {
+    grid-area: edit;
+    width: 18px;
+    height: 18px;
+  }
+}

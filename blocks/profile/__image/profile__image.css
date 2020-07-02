@@ -1,0 +1,7 @@
+.profile__image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: top / cover url(../../../images/konuhov.jpg);
+  flex-shrink: 0;
+}

@@ -1,0 +1,21 @@
+@import url(./__image-wrapper/card__image-wrapper.css);
+@import url(./__image/card__image.css);
+@import url(./__description/card__description.css);
+@import url(./__heading/card__heading.css);
+@import url(./__reaction/card__reaction.css);
+
+.card {
+  margin: 0;
+  max-width: 282px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 356px;
+  }
+}
