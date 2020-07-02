@@ -1,12 +1,11 @@
 .popup__close-button {
   border: none;
   background-color: transparent;
-  width: 40px;
-  height: 40px;
-  padding: 0;
+  width: 9%;
+  padding: 0 0 9%;
   position: absolute;
-  top: -40px;
-  right: -36px;
+  top: -11%;
+  right: -8%;
   overflow: hidden;
 }
 
@@ -16,7 +15,7 @@
   height: 100%;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   background: center / cover url(../../../images/icon-plus.svg) no-repeat;
   transform: rotate(45deg);
 }
