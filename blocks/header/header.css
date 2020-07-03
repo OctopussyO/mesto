@@ -1,4 +1,3 @@
-@import url(./__narrow/header__narrow.css);
 @import url(./__logo/header__logo.css);
 
 .header {
@@ -8,11 +7,20 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0 auto 40px;
+  max-width: 882px;
+  width: calc(100% + 2 * 19px);
+}
+
+@media screen and (max-width: 920px) {
+  .header {
+    width: 100%;
+    padding-left: 19px;
+    padding-right: 19px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .header {
-    padding-top: 28px;
-    padding-bottom: 28px;
+    padding: 28px;
   }
 }
