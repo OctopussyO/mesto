@@ -2,8 +2,8 @@
 @import url(./__logo/header__logo.css);
 
 .header {
-  min-height: 120px;
   padding-top: 46px;
+  padding-bottom: 38px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 600px) {
   .header {
-    min-height: 84px;
     padding-top: 28px;
+    padding-bottom: 28px;
   }
 }
