@@ -1,4 +1,7 @@
-.card__reaction {
+.card__like-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
   width: 20px;
   height: 18px;
   background: center / cover url(../../../images/icon-heart.svg) no-repeat;

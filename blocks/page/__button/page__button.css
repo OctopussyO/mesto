@@ -6,7 +6,7 @@
 
 .page__button:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: .6;
 }
 
 .page__button:focus {

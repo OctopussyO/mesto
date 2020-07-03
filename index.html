@@ -17,10 +17,10 @@
         <div class="profile__image"></div>
         <div class="profile__data">
           <h1 class="profile__name">Фёдор Конюхов</h1>
-          <button class="profile__btn profile__btn_action_edit page__button"></button>
+          <button class="profile__edit-button page__button" aria-label="Редактировать" type="button"></button>
           <p class="profile__profession">Российский путешественник</p>
         </div>
-        <button class="profile__btn profile__btn_action_add page__button"></button>
+        <button class="profile__add-button page__button" aria-label="Добавить" type="button"></button>
       </section>
       <section class="gallery">
         <figure class="card">
@@ -30,7 +30,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Алтайский край</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
         <figure class="card">
@@ -39,7 +39,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Ладожское озеро</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
         <figure class="card">
@@ -48,7 +48,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Гора Нургуш</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
         <figure class="card">
@@ -57,7 +57,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Судак, Крым</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
         <figure class="card">
@@ -66,7 +66,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Байкал</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
         <figure class="card">
@@ -75,7 +75,7 @@
           </div>
           <figcaption class="card__description">
             <h2 class="card__heading">Владивосток</h2>
-            <div class="card__reaction"></div>
+            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
           </figcaption>
         </figure>
       </section>
@@ -91,8 +91,8 @@
         <input type="text" class="popup__input popup__input_el_name" required>
         <input type="text" class="popup__input popup__input_el_profession" required>
       </fieldset>
-      <button class="popup__save-button page__button" type="submit">Сохранить</button>
-      <button class="popup__close-button page__button" type="button"></button>
+      <button class="popup__save-button" type="submit">Сохранить</button>
+      <button class="popup__close-button page__button" type="button" aria-label="Закрыть"></button>
     </form>
   </div>
   <script src="./scripts/script.js"></script>

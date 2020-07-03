@@ -2,7 +2,7 @@
 @import url(./__image/card__image.css);
 @import url(./__description/card__description.css);
 @import url(./__heading/card__heading.css);
-@import url(./__reaction/card__reaction.css);
+@import url(./__like-button/card__like-button.css);
 
 .card {
   margin: 0;
