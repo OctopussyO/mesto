@@ -9,27 +9,24 @@ let jobInput = formElement.querySelector('.popup__input_el_profession');
 let name = profile.querySelector('.profile__name');
 let job = profile.querySelector('.profile__profession');
 
+
+// Функция изменения видимости popup
 function popupToggle() {
   if (popup.classList.contains('popup_hidden')) {
     nameInput.value = name.textContent;
     jobInput.value = job.textContent;
-    popup.classList.toggle('popup_hidden');
-  } else {
-    popup.classList.toggle('popup_hidden');
   }
+  popup.classList.toggle('popup_hidden');
 }
 
+// Функция-обработчик отправки формы
 function formSubmitHandler(evt) {
-  evt.preventDefault(); 
-  popupToggle();
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  if (nameInput.value !== '') {
-    name.textContent = nameInput.value;
-  }
-  
-  if (jobInput.value !== '') {
-    job.textContent = jobInput.value;
-  }   
+  name.textContent = nameInput.value;
+  job.textContent = jobInput.value;
+
+  popupToggle();
 }
 
 editButton.addEventListener('click', popupToggle);
