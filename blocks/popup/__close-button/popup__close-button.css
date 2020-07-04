@@ -21,3 +21,10 @@
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
 }
+
+@media screen and (max-width: 600px) {
+  .popup__close-button {
+    top: -15%;
+    right: 1%;
+  }
+}
