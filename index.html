@@ -85,11 +85,11 @@
     </footer>
   </div>
   <div class="popup popup_hidden">
-    <form action="#" class="popup__container">
+    <form action="#" class="popup__container" name="edit-form" method="GET">
       <fieldset class="popup__fieldset">
         <legend class="popup__heading">Редактировать профиль</legend>
-        <input type="text" class="popup__input popup__input_el_name" required>
-        <input type="text" class="popup__input popup__input_el_profession" required>
+        <input type="text" class="popup__input" required name="popup-name">
+        <input type="text" class="popup__input" required name="popup-job">
       </fieldset>
       <button class="popup__save-button" type="submit">Сохранить</button>
       <button class="popup__close-button page__button" type="button" aria-label="Закрыть"></button>
