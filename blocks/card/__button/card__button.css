@@ -1,0 +1,13 @@
+@import url(./_act/card__button_act_delete.css);
+@import url(./_act/card__button_act_like.css);
+
+.card__button {
+  border: none;
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0;
+  width: 20px;
+  height: 18px;
+}

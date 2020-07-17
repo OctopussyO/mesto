@@ -24,16 +24,6 @@
       </section>
       <section class="gallery">
         <figure class="card">
-          <!-- Добавила эту оболочку, чтобы можно было любого формата вставлять изоблажения, не только квадратные -->
-          <div class="card__image-wrapper">
-            <img src="./images/photo-altai.jpg" alt="Фотография леса на фоне горы, Алтайский край" class="card__image">
-          </div>
-          <figcaption class="card__description">
-            <h2 class="card__heading">Алтайский край</h2>
-            <button class="card__like-button page__button" type="button" aria-label="Нравится"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
           <div class="card__image-wrapper">
             <img src="./images/photo-ladoga.jpg" alt="Фотография Ладожского озера, Ленинградская область" class="card__image">
           </div>
@@ -95,6 +85,21 @@
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
     </form>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <button class="card__button card__button_act_delete page__button" type="button" aria-label="Удалить"></button>
+      <button class="card__image" type="button" aria-label="Увеличить"></button>
+      <div class="card__description">
+        <h2 class="card__heading">Алтайский край</h2>
+        <button class="card__button card__button_act_like page__button" type="button" aria-label="Нравится">
+          <svg width="20" height="18" viewbox="-1 -1 23 19" stroke="black" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.154 9.338c2.14-2.14 2.14-5.614 0-7.733a5.486 5.486 0 00-7.755 0l-1.038 1.06-1.038-1.039C7.183-.535 3.708-.535 
+            1.589 1.605A5.43 5.43 0 000 5.482c0 1.462.572 2.84 1.59 3.877l8.771 8.772 8.793-8.793z"/>
+          </svg>
+        </button>
+      </div>
+    </article>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>

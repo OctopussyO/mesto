@@ -1,9 +1,16 @@
 .card__image {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  padding: 0 0 100%;
+  border: none;
+  background-image: url(../../../images/photo-altai.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.card__image:hover {
+  cursor: pointer;
+}
+
+.card__image:focus {
+  outline: none;
 }
