@@ -6,6 +6,22 @@
   background-position: center;
 }
 
+/* Этот псевдоэлемент добавлен, чтобы иконка корзины не терялась на фоне изображения.
+Например, это очень хорошо видно на фото из Судака, если убрать оверлей. 
+Т.к. неизвестно, какую картику загрузит пользователь, считаю это необходимым, хотя
+такого требования и не было в макете.*/
+.card__image::before {
+  content: '';
+  width: 100%;
+  padding-bottom: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2A2C2F;
+  opacity: .1;
+  z-index: 1;
+}
+
 .card__image:hover {
   cursor: pointer;
 }
