@@ -1,4 +1,4 @@
-.popup__close-button {
+.modal__close-button {
   border: none;
   background-color: transparent;
   width: 9%;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.popup__close-button::before {
+.modal__close-button::before {
   content: '';
   width: 100%;
   height: 100%;
@@ -23,7 +23,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .popup__close-button {
+  .modal__close-button {
     top: -15%;
     right: 1%;
   }

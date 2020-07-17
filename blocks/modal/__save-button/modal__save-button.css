@@ -1,4 +1,4 @@
-.popup__save-button {
+.modal__save-button {
   border: none;
   height: 50px;
   background-color: #000;
@@ -10,11 +10,11 @@
   transition: background-color .2s linear;
 }
 
-.popup__save-button:hover {
+.modal__save-button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, .8);
 }
 
-.popup__save-button:focus {
+.modal__save-button:focus {
   outline: none;
 }
