@@ -1,11 +1,11 @@
 .modal__close-button {
   border: none;
   background-color: transparent;
-  width: 9%;
-  padding: 0 0 9%;
+  width: 40px;
+  padding: 0 0 40px;
   position: absolute;
-  top: -11%;
-  right: -8%;
+  top: -36px;
+  right: -36px;
   overflow: hidden;
 }
 
@@ -22,9 +22,18 @@
           transform: rotate(45deg);
 }
 
+
 @media screen and (max-width: 600px) {
+  .modal__close-button {
+    width: 32px;
+    padding-bottom: 32px;
+    top: -30px;
+    right: -28px;
+  }
+}
+/* @media screen and (max-width: 600px) {
   .modal__close-button {
     top: -15%;
     right: 1%;
   }
-}
+} */

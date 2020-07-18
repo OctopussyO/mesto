@@ -20,3 +20,9 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+
+@media screen and (max-width: 600px) {
+  .modal__container {
+    padding: 30px 20px;
+  }
+}

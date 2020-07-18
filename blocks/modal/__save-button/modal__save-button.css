@@ -18,3 +18,10 @@
 .modal__save-button:focus {
   outline: none;
 }
+
+@media screen and (max-width: 600px) {
+  .modal__save-button {
+    height: 40px;
+    font-size: 14px;
+  }
+}
