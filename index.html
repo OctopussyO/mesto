@@ -78,10 +78,21 @@
     <form action="#" class="modal__container" name="edit-form" method="GET">
       <fieldset class="modal__fieldset">
         <legend class="modal__heading">Редактировать профиль</legend>
-        <input type="text" class="modal__input" required name="modal-name">
-        <input type="text" class="modal__input" required name="modal-job">
+        <input type="text" class="modal__input" required name="modal-name" placeholder="Имя">
+        <input type="text" class="modal__input" required name="modal-job" placeholder="Профессия">
       </fieldset>
       <button class="modal__save-button" type="submit">Сохранить</button>
+      <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
+    </form>
+  </div>
+  <div class="modal">
+    <form action="#" class="modal__container" name="add-form" method="GET">
+      <fieldset class="modal__fieldset">
+        <legend class="modal__heading">Новое место</legend>
+        <input type="text" class="modal__input" required name="modal-place" placeholder="Название">
+        <input type="text" class="modal__input" required name="modal-link" placeholder="Ссылка на картинку">
+      </fieldset>
+      <button class="modal__save-button" type="submit">Создать</button>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
     </form>
   </div>

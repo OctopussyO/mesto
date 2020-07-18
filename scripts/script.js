@@ -65,7 +65,7 @@ function addCard(name, link) {
   cardElement.querySelector('.card__heading').textContent = name;
   cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link})`);
 
-  cardContainer.prepend(cardElement)
+  cardContainer.prepend(cardElement);
 }
 
 
