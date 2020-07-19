@@ -27,51 +27,87 @@ const initialCards = [
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
-const modal = document.querySelector('.modal');
-const closeButton = modal.querySelector('.modal__close-button');
-const formElement = modal.querySelector('.modal__container');
+const addButton = profile.querySelector('.profile__add-button');
+const closeButtons = document.querySelectorAll('.modal__close-button');
+const modalEdit = document.querySelector('.modal_act_edit-profile');
+const modalAdd = document.querySelector('.modal_act_add-card');
+const formEdit = modalEdit.querySelector('.modal__container');
 
-let nameInput = formElement.querySelector('.modal__input[name="modal-name"]');
-let jobInput = formElement.querySelector('.modal__input[name="modal-job"]');
+let nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
+let jobInput = formEdit.querySelector('.modal__input[name="modal-job"]');
 let name = profile.querySelector('.profile__name');
 let job = profile.querySelector('.profile__profession');
 
 
+
 // Функция изменения видимости modal
-function modalToggle() {
-  if (modal.classList.contains('modal_hidden')) {
-    nameInput.value = name.textContent;
-    jobInput.value = job.textContent;
-  }
-  modal.classList.toggle('modal_hidden');
+function modalToggle(modal) {  
+  
+    // При открытии модального окна добавляем слушатели на кнопки форм
+    if (modal.classList.contains('modal_hidden')) {
+
+      if (modal === modalEdit) {
+        // При открытии модального окна редактирования профиля добавляем в инпуты текущее значение (согласно макету 4 проектной работы)
+        nameInput.value = name.textContent;
+        jobInput.value = job.textContent;
+        modal.querySelector('.modal__container').addEventListener('submit', formEditSubmitHandler);
+      } else if (modal === modalAdd) {
+        modal.querySelector('.modal__container').addEventListener('submit', formAddSubmitHandler);
+      }
+    }
+
+    modal.classList.toggle('modal_hidden');
 }
 
-// Функция-обработчик отправки формы
-function formSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+// Функция-обработчик отправки формы редактирования профиля
+function formEditSubmitHandler(evt) {
+  evt.preventDefault(); // Отменяем стандартную отправку формы.
 
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
 
-  modalToggle();
+  modalToggle(modalEdit);
 }
 
-// Дункция добавления карточек "из коробки"
-function addCard(name, link) {
+// Функция-обработчик отправки формы добавления карточек
+function formAddSubmitHandler(evt) {
+  evt.preventDefault();
+
+  let placeInput = modalAdd.querySelector('.modal__input[name="modal-place"]');
+  let linkInput = modalAdd.querySelector('.modal__input[name="modal-link"]');
+
+  addCard(placeInput.value, linkInput.value);
+
+  modalToggle(modalAdd);
+  
+  // Очищаем поля input
+  placeInput.value = '';
+  linkInput.value = '';
+}
+
+// Функция добавления карточек "из коробки"
+function addCard(place, link) {
   const cardContainer = document.querySelector('.gallery');
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
   
-  cardElement.querySelector('.card__heading').textContent = name;
+  cardElement.querySelector('.card__heading').textContent = place;
   cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link})`);
 
   cardContainer.prepend(cardElement);
 }
 
 
+// Добавляем исходные карточки
 initialCards.forEach(card => addCard(card.name, card.link));
 
-editButton.addEventListener('click', modalToggle);
-formElement.addEventListener('submit', formSubmitHandler);
-closeButton.addEventListener('click', modalToggle);
+// Открываем модальное окно редактирования профиля по клику на кнопку редактирования
+editButton.addEventListener('click', () => modalToggle(modalEdit));
 
+// Открываем модальное окно добавления изображений по клику на кнопку "+"
+addButton.addEventListener('click', () => modalToggle(modalAdd));
+
+// Закрытие модальных окон по клику на "Х"
+closeButtons.forEach(function(button) {
+  button.addEventListener('click', evt => modalToggle(evt.target.parentElement.parentElement));
+});
