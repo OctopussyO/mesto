@@ -47,7 +47,8 @@ function modalToggle(modal) {
     if (modal.classList.contains('modal_hidden')) {
 
       if (modal === modalEdit) {
-        // При открытии модального окна редактирования профиля добавляем в инпуты текущее значение (согласно макету 4 проектной работы)
+        // При открытии модального окна редактирования профиля добавляем в инпуты текущее значение 
+        // (согласно макету 4 проектной работы)
         nameInput.value = name.textContent;
         jobInput.value = job.textContent;
         modal.querySelector('.modal__container').addEventListener('submit', formEditSubmitHandler);
@@ -92,7 +93,7 @@ function addCard(place, link) {
   const cardElement = cardTemplate.cloneNode(true);
   
   cardElement.querySelector('.card__heading').textContent = place;
-  cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link})`);
+  cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link});`);
 
   cardContainer.prepend(cardElement);
 }
