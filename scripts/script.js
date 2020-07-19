@@ -95,6 +95,11 @@ function addCard(place, link) {
   cardElement.querySelector('.card__heading').textContent = place;
   cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link});`);
 
+  // Добавляем возможность ставить лайки
+  cardElement.querySelector('.card__button_act_like').addEventListener('click', evt => {
+    evt.currentTarget.classList.toggle('card__button_active')
+  });
+
   cardContainer.prepend(cardElement);
 }
 
