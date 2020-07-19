@@ -100,6 +100,12 @@ function addCard(place, link) {
     evt.currentTarget.classList.toggle('card__button_active')
   });
 
+
+  //Добавляем возможность удаления карточки
+  cardElement.querySelector('.card__button_act_delete').addEventListener('click', evt => {
+    evt.target.closest('.card').remove();
+  });
+
   cardContainer.prepend(cardElement);
 }
 
