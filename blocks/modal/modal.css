@@ -4,6 +4,8 @@
 @import url(./__input/modal__input.css);
 @import url(./__save-button/modal__save-button.css);
 @import url(./__close-button/modal__close-button.css);
+@import url(./__image/modal_image.css);
+@import url(./__image-caption/modal__image-caption.css);
 
 .modal {
   position: fixed;

@@ -1,0 +1,17 @@
+.modal_act_enlarge-image {
+  background-color: rgba(0, 0, 0, .9);
+}
+
+.modal_act_enlarge-image .modal__container {
+
+  width: max-content;
+  height: max-content;
+  border-radius: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.modal_act_enlarge-image .modal__close-button {
+  top: -40px;
+  right: -40px;
+}

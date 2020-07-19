@@ -121,5 +121,5 @@ addButton.addEventListener('click', () => modalToggle(modalAdd));
 
 // Закрытие модальных окон по клику на "Х"
 closeButtons.forEach(function(button) {
-  button.addEventListener('click', evt => modalToggle(evt.target.parentElement.parentElement));
+  button.addEventListener('click', evt => modalToggle(evt.target.closest('.modal')));
 });
