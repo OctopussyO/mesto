@@ -1,5 +1,8 @@
 .gallery {
   width: 100%;
+  /* Добавляем минимальную высоту, чтобы секция не схлопывалась
+  при удалении всех карточек */
+  min-height: 300px;
   display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
