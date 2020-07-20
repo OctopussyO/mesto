@@ -53,9 +53,13 @@
   </div>
   <div class="modal modal_act_enlarge-image modal_hidden">
     <figure class="modal__container">
-      <img class="modal__image">
-      <figcaption class="modal__image-caption"></figcaption>
-      <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
+      <img class="modal__image" src="#" alt="#">
+      <figcaption>
+        <p class="modal__image-caption"></p>
+        <!-- Вкладываю кнопку в figcaption, потому что валидатор ругается: 
+          Element button not allowed as child of element figure in this context. -->
+        <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
+      </figcaption>
     </figure>
   </div>
   <template id="card-template">
@@ -69,7 +73,7 @@
         </svg>
       </button>
       <button class="card__button card__button_act_enlarge-image" type="button" aria-label="Увеличить">
-        <img class="card__image">
+        <img class="card__image" src="#" alt="#">
       </button>
       <figcaption class="card__description">
         <h2 class="card__heading"></h2>
