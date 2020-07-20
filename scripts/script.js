@@ -33,10 +33,10 @@ const modalEdit = document.querySelector('.modal_act_edit-profile');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formEdit = modalEdit.querySelector('.modal__container');
 
-let nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
-let jobInput = formEdit.querySelector('.modal__input[name="modal-job"]');
-let name = profile.querySelector('.profile__name');
-let job = profile.querySelector('.profile__profession');
+const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
+const jobInput = formEdit.querySelector('.modal__input[name="modal-job"]');
+const name = profile.querySelector('.profile__name');
+const job = profile.querySelector('.profile__profession');
 
 
 // Функция изменения видимости modal
@@ -57,26 +57,25 @@ function formEditSubmitHandler(evt) {
 // Функция-обработчик отправки формы добавления карточек
 function formAddSubmitHandler(evt) {
   evt.preventDefault();
-
-  let placeInput = modalAdd.querySelector('.modal__input[name="modal-place"]');
-  let linkInput = modalAdd.querySelector('.modal__input[name="modal-link"]');
+  const formAdd = modalAdd.querySelector('.modal__container');
+  const placeInput = formAdd.querySelector('.modal__input[name="modal-place"]');
+  const linkInput = formAdd.querySelector('.modal__input[name="modal-link"]');
 
   addCard(placeInput.value, linkInput.value);
 
   modalToggle(modalAdd);
   
   // Очищаем поля input
-  placeInput.value = '';
-  linkInput.value = '';
+  formAdd.reset();
 }
 
 // Функция увеличения карточек
 function imageEnlarge(card) {
   const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
-  let modalImage = modalEnlarge.querySelector('.modal__image');
-  let modalCaption = modalEnlarge.querySelector('.modal__image-caption');
-  let cardCaption = card.querySelector('.card__heading');
-  let cardImage = card.querySelector('.card__image');
+  const modalImage = modalEnlarge.querySelector('.modal__image');
+  const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
+  const cardCaption = card.querySelector('.card__heading');
+  const cardImage = card.querySelector('.card__image');
 
   modalImage.src = cardImage.src;
   modalImage.alt = cardImage.alt;
@@ -90,7 +89,7 @@ function addCard(place, link) {
   const cardContainer = document.querySelector('.gallery');
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
-  let cardImage = cardElement.querySelector('.card__image');
+  const cardImage = cardElement.querySelector('.card__image');
   
   cardElement.querySelector('.card__heading').textContent = place;
   cardImage.src = link;
@@ -137,6 +136,6 @@ modalAdd.querySelector('.modal__container').addEventListener('submit', formAddSu
 
 
 // Закрытие модальных окон по клику на "Х"
-closeButtons.forEach(function(button) {
+closeButtons.forEach(function (button) {
   button.addEventListener('click', evt => modalToggle(evt.target.closest('.modal')));
 });
