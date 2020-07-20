@@ -86,6 +86,21 @@ function formAddSubmitHandler(evt) {
   linkInput.value = '';
 }
 
+// Функция увеличения карточек
+function imageEnlarge(card) {
+  const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
+  let modalImage = modalEnlarge.querySelector('.modal__image');
+  let modalCaption = modalEnlarge.querySelector('.modal__image-caption');
+  let cardCaption = card.querySelector('.card__heading');
+  let cardImage = card.querySelector('.card__image');
+
+  modalImage.src = cardImage.src;
+  modalImage.alt = cardImage.alt;
+  modalCaption.textContent = cardCaption.textContent;
+
+  modalToggle(modalEnlarge);
+}
+
 // Функция добавления карточек
 function addCard(place, link) {
   const cardContainer = document.querySelector('.gallery');
@@ -102,6 +117,10 @@ function addCard(place, link) {
     evt.currentTarget.classList.toggle('card__button_active')
   });
 
+  // Добавляем возможность увеличения картинки
+  cardElement.querySelector('.card__button_act_enlarge-image').addEventListener('click', evt =>{
+    imageEnlarge(evt.currentTarget.closest('.card'));
+  });
 
   //Добавляем возможность удаления карточки
   cardElement.querySelector('.card__button_act_delete').addEventListener('click', evt => {
