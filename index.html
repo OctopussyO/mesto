@@ -51,15 +51,15 @@
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
     </form>
   </div>
-  <div class="modal modal_act_enlarge-image">
+  <div class="modal modal_act_enlarge-image modal_hidden">
     <figure class="modal__container">
-      <img class="modal__image" src="./images/photo-baikal.jpg" alt="">
-      <figcaption class="modal__image-caption">Карачаево-Черкессия</figcaption>
+      <img class="modal__image">
+      <figcaption class="modal__image-caption"></figcaption>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
     </figure>
   </div>
   <template id="card-template">
-    <article class="card">
+    <figure class="card">
       <button class="card__button card__button_act_delete page__button" type="button" aria-label="Удалить">
         <svg width="18" height="20" fill="#fff" xmlns="http://www.w3.org/2000/svg">
           <path d="M2.458 18.142c.06.67.61 1.158 1.28 1.158H14.26c.67 0 1.22-.508 1.28-1.158L16.72 
@@ -68,8 +68,10 @@
           1.28-1.28 0-.711-.569-1.28-1.28-1.28z" />
         </svg>
       </button>
-      <button class="card__image" type="button" aria-label="Увеличить"></button>
-      <div class="card__description">
+      <button class="card__button card__button_act_enlarge-image" type="button" aria-label="Увеличить">
+        <img class="card__image">
+      </button>
+      <figcaption class="card__description">
         <h2 class="card__heading"></h2>
         <button class="card__button card__button_act_like page__button" type="button" aria-label="Нравится">
           <svg width="20" height="18" viewbox="-1 -1 23 19" stroke="black" stroke-width="1.5" 
@@ -79,8 +81,8 @@
             2.84 1.59 3.877l8.771 8.772 8.793-8.793z"/>
           </svg>
         </button>
-      </div>
-    </article>
+      </figcaption>
+    </figure>
   </template>
   <script src="./scripts/script.js"></script>
 </body>

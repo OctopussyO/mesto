@@ -86,14 +86,16 @@ function formAddSubmitHandler(evt) {
   linkInput.value = '';
 }
 
-// Функция добавления карточек "из коробки"
+// Функция добавления карточек
 function addCard(place, link) {
   const cardContainer = document.querySelector('.gallery');
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
+  let cardImage = cardElement.querySelector('.card__image');
   
   cardElement.querySelector('.card__heading').textContent = place;
-  cardElement.querySelector('.card__image').setAttribute('style', `background-image: url(${link});`);
+  cardImage.src = link;
+  cardImage.alt = `${place}, фотография`;
 
   // Добавляем возможность ставить лайки
   cardElement.querySelector('.card__button_act_like').addEventListener('click', evt => {

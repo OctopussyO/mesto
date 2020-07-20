@@ -1,5 +1,6 @@
 @import url(./_act/card__button_act_delete.css);
 @import url(./_act/card__button_act_like.css);
+@import url(./_act/card__button_act_enlarge-image.css);
 @import url(./_active/card__button_active.css);
 
 .card__button {
@@ -8,7 +9,12 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  padding: 0;
-  width: 20px;
-  height: 18px;
+}
+
+.card__button:hover {
+  cursor: pointer;
+}
+
+.card__button:focus {
+  outline: none;
 }
