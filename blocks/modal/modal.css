@@ -22,4 +22,9 @@
   display: -ms-flexbox;
   display: flex;
   z-index: 10;
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: .4s opacity, .4s visibility;
+  -o-transition: .4s opacity, .4s visibility;
+  transition: .4s opacity, .4s visibility;
 }
