@@ -39,25 +39,9 @@ let name = profile.querySelector('.profile__name');
 let job = profile.querySelector('.profile__profession');
 
 
-
 // Функция изменения видимости modal
 function modalToggle(modal) {  
-  
-    // При открытии модального окна добавляем слушатели на кнопки форм
-    if (modal.classList.contains('modal_hidden')) {
-
-      if (modal === modalEdit) {
-        // При открытии модального окна редактирования профиля добавляем в инпуты текущее значение 
-        // (согласно макету 4 проектной работы)
-        nameInput.value = name.textContent;
-        jobInput.value = job.textContent;
-        modal.querySelector('.modal__container').addEventListener('submit', formEditSubmitHandler);
-      } else if (modal === modalAdd) {
-        modal.querySelector('.modal__container').addEventListener('submit', formAddSubmitHandler);
-      }
-    }
-
-    modal.classList.toggle('modal_hidden');
+  modal.classList.toggle('modal_hidden');
 }
 
 // Функция-обработчик отправки формы редактирования профиля
@@ -135,10 +119,22 @@ function addCard(place, link) {
 initialCards.forEach(card => addCard(card.name, card.link));
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
-editButton.addEventListener('click', () => modalToggle(modalEdit));
+editButton.addEventListener('click', () => {
+  // При открытии модального окна добавляем слушатели на кнопки форм
+  nameInput.value = name.textContent;
+  jobInput.value = job.textContent;
+
+  modalToggle(modalEdit);
+});
+
+formEdit.addEventListener('submit', formEditSubmitHandler);
+
 
 // Открываем модальное окно добавления изображений по клику на кнопку "+"
 addButton.addEventListener('click', () => modalToggle(modalAdd));
+
+modalAdd.querySelector('.modal__container').addEventListener('submit', formAddSubmitHandler);
+
 
 // Закрытие модальных окон по клику на "Х"
 closeButtons.forEach(function(button) {
