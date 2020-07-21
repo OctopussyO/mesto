@@ -25,18 +25,33 @@ const initialCards = [
   }
 ]
 
+
+// Обёртки
 const profile = document.querySelector('.profile');
+const cardContainer = document.querySelector('.gallery');
+const cardTemplate = document.querySelector('#card-template').content;
+const modalEdit = document.querySelector('.modal_act_edit-profile');
+const formEdit = modalEdit.querySelector('.modal__container');
+const modalAdd = document.querySelector('.modal_act_add-card');
+const formAdd = modalAdd.querySelector('.modal__container');
+const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
+
+// Данные полей форм
+const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
+const jobInput = formEdit.querySelector('.modal__input[name="modal-job"]');
+const placeInput = formAdd.querySelector('.modal__input[name="modal-place"]');
+const linkInput = formAdd.querySelector('.modal__input[name="modal-link"]');
+
+// Кнопки
 const editButton = profile.querySelector('.profile__edit-button');
 const addButton = profile.querySelector('.profile__add-button');
 const closeButtons = document.querySelectorAll('.modal__close-button');
-const modalEdit = document.querySelector('.modal_act_edit-profile');
-const modalAdd = document.querySelector('.modal_act_add-card');
-const formEdit = modalEdit.querySelector('.modal__container');
 
-const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
-const jobInput = formEdit.querySelector('.modal__input[name="modal-job"]');
+// Прочие элементы DOM
 const name = profile.querySelector('.profile__name');
 const job = profile.querySelector('.profile__profession');
+const modalImage = modalEnlarge.querySelector('.modal__image');
+const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
 
 
 // Функция изменения видимости modal
@@ -54,40 +69,8 @@ function formEditSubmitHandler(evt) {
   modalToggle(modalEdit);
 }
 
-// Функция-обработчик отправки формы добавления карточек
-function formAddSubmitHandler(evt) {
-  evt.preventDefault();
-  const formAdd = modalAdd.querySelector('.modal__container');
-  const placeInput = formAdd.querySelector('.modal__input[name="modal-place"]');
-  const linkInput = formAdd.querySelector('.modal__input[name="modal-link"]');
-
-  addCard(placeInput.value, linkInput.value);
-
-  modalToggle(modalAdd);
-  
-  // Очищаем поля input
-  formAdd.reset();
-}
-
-// Функция увеличения карточек
-function imageEnlarge(card) {
-  const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
-  const modalImage = modalEnlarge.querySelector('.modal__image');
-  const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
-  const cardCaption = card.querySelector('.card__heading');
-  const cardImage = card.querySelector('.card__image');
-
-  modalImage.src = cardImage.src;
-  modalImage.alt = cardImage.alt;
-  modalCaption.textContent = cardCaption.textContent;
-
-  modalToggle(modalEnlarge);
-}
-
 // Функция добавления карточек
 function addCard(place, link) {
-  const cardContainer = document.querySelector('.gallery');
-  const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
   
@@ -110,12 +93,42 @@ function addCard(place, link) {
     evt.target.closest('.card').remove();
   });
 
-  cardContainer.prepend(cardElement);
+  return cardElement;
+}
+
+// Функция рендеринга карточки
+function renderCard(card) {
+  cardContainer.prepend(card);
+}
+
+// Функция-обработчик отправки формы добавления карточек
+function formAddSubmitHandler(evt) {
+  evt.preventDefault();
+
+  renderCard(addCard(placeInput.value, linkInput.value));
+
+  modalToggle(modalAdd);
+  
+  // Очищаем поля input
+  formAdd.reset();
+}
+
+// Функция увеличения карточек
+function imageEnlarge(card) {
+  const cardCaption = card.querySelector('.card__heading');
+  const cardImage = card.querySelector('.card__image');
+
+  modalImage.src = cardImage.src;
+  modalImage.alt = cardImage.alt;
+  modalCaption.textContent = cardCaption.textContent;
+
+  modalToggle(modalEnlarge);
 }
 
 
+
 // Добавляем исходные карточки
-initialCards.forEach(card => addCard(card.name, card.link));
+initialCards.forEach(card => renderCard(addCard(card.name, card.link)));
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
 editButton.addEventListener('click', () => {
