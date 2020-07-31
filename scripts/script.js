@@ -57,7 +57,7 @@ const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
 
 // Функция изменения видимости modal
 function modalToggle(modal) {  
-  modal.classList.toggle('modal_hidden');
+  modal.classList.toggle('modal_active');
 }
 
 // Функция-обработчик отправки формы редактирования профиля
@@ -165,4 +165,11 @@ modalOverlays.forEach(function (modal) {
       modalToggle(evt.target.closest('.modal'));
     }
   });
+});
+
+// Закрытие модального окна по нажатию клавиши "Escape"
+document.body.addEventListener('keydown', evt => {
+  if (evt.key === 'Escape') {
+    modalToggle(document.querySelector('.modal_active'));
+  }
 });
