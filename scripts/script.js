@@ -35,6 +35,7 @@ const formEdit = modalEdit.querySelector('.modal__container');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formAdd = modalAdd.querySelector('.modal__container');
 const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
+const modalOverlays = document.querySelectorAll('.modal');
 
 // Данные полей форм
 const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
@@ -150,5 +151,18 @@ modalAdd.querySelector('.modal__container').addEventListener('submit', formAddSu
 
 // Закрытие модальных окон по клику на "Х"
 closeButtons.forEach(function (button) {
-  button.addEventListener('click', evt => modalToggle(evt.target.closest('.modal')));
+  button.addEventListener('click', evt => {
+    modalToggle(evt.target.closest('.modal'));
+    // evt.stopPropagation();
+  });
+});
+
+
+// Закрытие модальных окон по клику вне контейнера
+modalOverlays.forEach(function (modal) {
+  modal.addEventListener('click', evt => {
+    if (!evt.target.closest('.modal__container')) {
+      modalToggle(evt.target.closest('.modal'));
+    }
+  });
 });
