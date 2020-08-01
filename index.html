@@ -33,8 +33,8 @@
     <form action="#" class="modal__container" name="edit-form" method="GET">
       <fieldset class="modal__fieldset">
         <legend class="modal__heading">Редактировать профиль</legend>
-        <input type="text" class="modal__input" required name="modal-name" placeholder="Имя">
-        <input type="text" class="modal__input" required name="modal-job" placeholder="Профессия">
+        <input type="text" class="modal__input" name="modal-name" placeholder="Имя" required minlength="2" maxlength="40">
+        <input type="text" class="modal__input" name="modal-job" placeholder="Профессия" required minlength="2" maxlength="200">
       </fieldset>
       <button class="modal__save-button" type="submit">Сохранить</button>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
@@ -44,8 +44,8 @@
     <form action="#" class="modal__container" name="add-form" method="GET">
       <fieldset class="modal__fieldset">
         <legend class="modal__heading">Новое место</legend>
-        <input type="text" class="modal__input" required name="modal-place" placeholder="Название">
-        <input type="text" class="modal__input" required name="modal-link" placeholder="Ссылка на картинку">
+        <input type="text" class="modal__input" name="modal-place" placeholder="Название" required minlength="1" maxlength="30">
+        <input type="text" class="modal__input" name="modal-link" placeholder="Ссылка на картинку" required type="url">
       </fieldset>
       <button class="modal__save-button" type="submit">Создать</button>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
