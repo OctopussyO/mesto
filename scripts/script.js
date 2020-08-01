@@ -162,7 +162,7 @@ closeButtons.forEach(function (button) {
 modalOverlays.forEach(function (modal) {
   modal.addEventListener('click', evt => {
     if (!evt.target.closest('.modal__container')) {
-      modalToggle(evt.target.closest('.modal'));
+      modalToggle(evt.currentTarget);
     }
   });
 });
