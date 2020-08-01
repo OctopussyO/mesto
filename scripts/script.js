@@ -56,8 +56,32 @@ const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
 
 
 // Функция изменения видимости modal
-function modalToggle(modal) {  
+function modalToggle(modal) {
   modal.classList.toggle('modal_active');
+
+  escapeListener(modal);
+}
+
+// Функция, добавляющая/убирающая возможность закрытия модального окна по нажатию 
+// клавиши "Escape"
+function escapeListener(modal) {
+  if (isModalOpened(modal)) {
+    document.body.addEventListener('keydown', escapeHandler);
+  } else {
+    document.body.removeEventListener('keydown', escapeHandler);
+  }
+}
+
+// Функция проверяющая состояние модального окна (открыто/зактыто)
+function isModalOpened(modal) {
+  return modal.classList.contains('modal_active');
+}
+
+// Функция, вызывающая закрытие модального окна по нажатию клавиши "Escape"
+function escapeHandler(evt) {
+  if (evt.key === 'Escape') {
+    modalToggle(document.querySelector('.modal_active'));
+  }
 }
 
 // Функция-обработчик отправки формы редактирования профиля
@@ -167,9 +191,3 @@ modalOverlays.forEach(function (modal) {
   });
 });
 
-// Закрытие модального окна по нажатию клавиши "Escape"
-document.body.addEventListener('keydown', evt => {
-  if (evt.key === 'Escape') {
-    modalToggle(document.querySelector('.modal_active'));
-  }
-});
