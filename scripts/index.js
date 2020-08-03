@@ -28,7 +28,7 @@ const initialCards = [
 
 // Обёртки
 const profile = document.querySelector('.profile');
-const cardContainer = document.querySelector('.gallery');
+const cardsContainer = document.querySelector('.gallery');
 const cardTemplate = document.querySelector('#card-template').content;
 const modalEdit = document.querySelector('.modal_act_edit-profile');
 const formEdit = modalEdit.querySelector('.modal__container');
@@ -103,27 +103,12 @@ function addCard(place, link) {
   cardImage.src = link;
   cardImage.alt = `${place}, фотография`;
 
-  // Добавляем возможность ставить лайки
-  cardElement.querySelector('.card__button_act_like').addEventListener('click', evt => {
-    evt.currentTarget.classList.toggle('card__button_active')
-  });
-
-  // Добавляем возможность увеличения картинки
-  cardElement.querySelector('.card__button_act_enlarge-image').addEventListener('click', evt =>{
-    imageEnlarge(evt.currentTarget.closest('.card'));
-  });
-
-  //Добавляем возможность удаления карточки
-  cardElement.querySelector('.card__button_act_delete').addEventListener('click', evt => {
-    evt.target.closest('.card').remove();
-  });
-
   return cardElement;
 }
 
 // Функция рендеринга карточки
 function renderCard(card) {
-  cardContainer.prepend(card);
+  cardsContainer.prepend(card);
 }
 
 // Функция-обработчик отправки формы добавления карточек
@@ -150,7 +135,19 @@ function imageEnlarge(card) {
   modalToggle(modalEnlarge);
 }
 
-
+// Добавляем слушатели событий на кнопки карточек галереи
+cardsContainer.addEventListener('click', (evt) => {
+  if (evt.target.closest('.card__button_act_like')) {
+    // Добавляем возможность ставить лайки
+    evt.target.closest('.card__button_act_like').classList.toggle('card__button_active');
+  } else if (evt.target.classList.contains('card__button_act_enlarge-image')) {
+    // Добавляем возможность увеличения картинки
+    imageEnlarge(evt.target.closest('.card'));
+  } else if (evt.target.closest('.card__button_act_delete')) {
+    //Добавляем возможность удаления карточки
+    evt.target.closest('.card').remove();
+  }
+})
 
 // Добавляем исходные карточки
 initialCards.forEach(card => renderCard(addCard(card.name, card.link)));
@@ -189,7 +186,7 @@ closeButtons.forEach(function (button) {
 
 // Закрытие модальных окон по клику вне контейнера
 modalOverlays.forEach(function (modal) {
-  modal.addEventListener('click', evt => {
+  modal.addEventListener('mousedown', evt => {
     if (!evt.target.closest('.modal__container')) {
       modalToggle(evt.currentTarget);
     }
