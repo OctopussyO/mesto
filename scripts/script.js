@@ -35,7 +35,7 @@ const formEdit = modalEdit.querySelector('.modal__container');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formAdd = modalAdd.querySelector('.modal__container');
 const modalEnlarge = document.querySelector('.modal_act_enlarge-image');
-const modalOverlays = document.querySelectorAll('.modal');
+const modalOverlays = Array.from(document.querySelectorAll('.modal'));
 
 // Данные полей форм
 const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
@@ -46,7 +46,7 @@ const linkInput = formAdd.querySelector('.modal__input[name="modal-link"]');
 // Кнопки
 const editButton = profile.querySelector('.profile__edit-button');
 const addButton = profile.querySelector('.profile__add-button');
-const closeButtons = document.querySelectorAll('.modal__close-button');
+const closeButtons = Array.from(document.querySelectorAll('.modal__close-button'));
 
 // Прочие элементы DOM
 const name = profile.querySelector('.profile__name');
@@ -168,9 +168,14 @@ formEdit.addEventListener('submit', formEditSubmitHandler);
 
 
 // Открываем модальное окно добавления изображений по клику на кнопку "+"
-addButton.addEventListener('click', () => modalToggle(modalAdd));
+addButton.addEventListener('click', () => {
+  // При открытии модального окна очищаем поля формы
+  formAdd.reset();
 
-modalAdd.querySelector('.modal__container').addEventListener('submit', formAddSubmitHandler);
+  modalToggle(modalAdd);
+});
+
+formAdd.addEventListener('submit', formAddSubmitHandler);
 
 
 // Закрытие модальных окон по клику на "Х"
@@ -190,4 +195,3 @@ modalOverlays.forEach(function (modal) {
     }
   });
 });
-

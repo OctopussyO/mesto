@@ -2,7 +2,12 @@
 @import url(./__fieldset/modal__fieldset.css);
 @import url(./__heading/modal__heading.css);
 @import url(./__input/modal__input.css);
+@import url(./__input/_valid/modal__input_valid.css);
+@import url(./__input/_invalid/modal__input_invalid.css);
+@import url(./__error/modal__error.css);
 @import url(./__save-button/modal__save-button.css);
+@import url(./__save-button/_blocked/modal__save-button_blocked.css);
+@import url(./__save-button/_unblocked/modal__save-button_unblocked.css);
 @import url(./__close-button/modal__close-button.css);
 @import url(./__image/modal_image.css);
 @import url(./__image-caption/modal__image-caption.css);
