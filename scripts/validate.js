@@ -98,33 +98,24 @@ const enableValidation = ({formSelector, inputSelector, submitButtonSelector, ac
 
 // Функция "сброса" результатов предыдущей валидации (необходима для "обновления" результатов 
 // после закрытия формы без сохранения)
-const resetValidation = (modalElement, {inputSelector, errorClass, inputValidClass, 
-  inputErrorClass, submitButtonSelector, activeButtonClass, inactiveButtonClass}) => {
-  const inputs = Array.from(modalElement.querySelectorAll(inputSelector));
+const resetValidation = (modalElement, ...rest) => {  
+  const inputs = Array.from(modalElement.querySelectorAll(objectOfValidation.inputSelector));
 
   inputs.forEach((inputElement) => {
-    const errorElement = modalElement.querySelector(`.${errorClass}_in_${inputElement.name}`);
-    addValidInputState(inputElement, errorElement, inputValidClass, inputErrorClass);
+    const errorElement = modalElement.querySelector(`.${objectOfValidation.errorClass}_in_${inputElement.name}`);
+    addValidInputState(inputElement, errorElement, objectOfValidation.inputValidClass, objectOfValidation.inputErrorClass);
   });
 
-  const buttonSubmit = modalElement.querySelector(submitButtonSelector);
+  const buttonSubmit = modalElement.querySelector(objectOfValidation.submitButtonSelector);
+
   if (modalElement.classList.contains('modal_act_edit-profile')) {
-    addValidSubmitState(buttonSubmit, activeButtonClass, inactiveButtonClass);
+    addValidSubmitState(buttonSubmit, objectOfValidation.activeButtonClass, objectOfValidation.inactiveButtonClass);
   } else if (modalElement.classList.contains('modal_act_add-card')) {
-    addInvalidSubmitState(buttonSubmit, activeButtonClass, inactiveButtonClass);
+    addInvalidSubmitState(buttonSubmit, objectOfValidation.activeButtonClass, objectOfValidation.inactiveButtonClass);
   }
 }
 
 
-// Сбрасываем результаты предыдущей валидации при открытии формы редактирования профиля
-editButton.addEventListener('click', () => {
-  resetValidation(modalEdit, objectOfValidation);
-});
-
-// Сбрасываем результаты предыдущей валидации при открытии формы добавления карточки
-addButton.addEventListener('click', () => {
-  resetValidation(modalAdd, objectOfValidation);
-});
 
 // Запускаем валидацию форм
 enableValidation (objectOfValidation);

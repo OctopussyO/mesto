@@ -55,43 +55,37 @@ const modalImage = modalEnlarge.querySelector('.modal__image');
 const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
 
 
-// Функция изменения видимости modal
-function modalToggle(modal) {
-  modal.classList.toggle('modal_active');
 
-  escapeListener(modal);
+// Функция открытия модального окна, добавляющая возможность закрытия модального 
+// окна по нажатию клавиши "Escape"
+function openModal(modal) {
+  modal.classList.add('modal_active');
+  document.body.addEventListener('keydown', handleEscape);
 }
 
-// Функция, добавляющая/убирающая возможность закрытия модального окна по нажатию 
-// клавиши "Escape"
-function escapeListener(modal) {
-  if (isModalOpened(modal)) {
-    document.body.addEventListener('keydown', escapeHandler);
-  } else {
-    document.body.removeEventListener('keydown', escapeHandler);
-  }
+// Функция закрытия модального окна, убирающая возможность закрытия модального 
+// окна по нажатию клавиши "Escape"
+function closeModal(modal) {
+  modal.classList.remove('modal_active');
+  document.body.removeEventListener('keydown', handleEscape);
 }
 
-// Функция проверяющая состояние модального окна (открыто/зактыто)
-function isModalOpened(modal) {
-  return modal.classList.contains('modal_active');
-}
 
 // Функция, вызывающая закрытие модального окна по нажатию клавиши "Escape"
-function escapeHandler(evt) {
+function handleEscape(evt) {
   if (evt.key === 'Escape') {
-    modalToggle(document.querySelector('.modal_active'));
+    closeModal(document.querySelector('.modal_active'));
   }
 }
 
 // Функция-обработчик отправки формы редактирования профиля
-function formEditSubmitHandler(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault(); // Отменяем стандартную отправку формы.
 
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
 
-  modalToggle(modalEdit);
+  closeModal(modalEdit);
 }
 
 // Функция добавления карточек
@@ -112,19 +106,19 @@ function renderCard(card) {
 }
 
 // Функция-обработчик отправки формы добавления карточек
-function formAddSubmitHandler(evt) {
+function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
   renderCard(addCard(placeInput.value, linkInput.value));
 
-  modalToggle(modalAdd);
+  closeModal(modalAdd);
   
   // Очищаем поля input
   formAdd.reset();
 }
 
 // Функция увеличения карточек
-function imageEnlarge(card) {
+function enlargeImage(card) {
   const cardCaption = card.querySelector('.card__heading');
   const cardImage = card.querySelector('.card__image');
 
@@ -132,8 +126,10 @@ function imageEnlarge(card) {
   modalImage.alt = cardImage.alt;
   modalCaption.textContent = cardCaption.textContent;
 
-  modalToggle(modalEnlarge);
+  openModal(modalEnlarge);
 }
+
+
 
 // Добавляем слушатели событий на кнопки карточек галереи
 cardsContainer.addEventListener('click', (evt) => {
@@ -142,7 +138,7 @@ cardsContainer.addEventListener('click', (evt) => {
     evt.target.closest('.card__button_act_like').classList.toggle('card__button_active');
   } else if (evt.target.classList.contains('card__button_act_enlarge-image')) {
     // Добавляем возможность увеличения картинки
-    imageEnlarge(evt.target.closest('.card'));
+    enlargeImage(evt.target.closest('.card'));
   } else if (evt.target.closest('.card__button_act_delete')) {
     //Добавляем возможность удаления карточки
     evt.target.closest('.card').remove();
@@ -158,10 +154,12 @@ editButton.addEventListener('click', () => {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
 
-  modalToggle(modalEdit);
+  resetValidation(modalEdit);
+
+  openModal(modalEdit);
 });
 
-formEdit.addEventListener('submit', formEditSubmitHandler);
+formEdit.addEventListener('submit', handleEditFormSubmit);
 
 
 // Открываем модальное окно добавления изображений по клику на кнопку "+"
@@ -169,16 +167,18 @@ addButton.addEventListener('click', () => {
   // При открытии модального окна очищаем поля формы
   formAdd.reset();
 
-  modalToggle(modalAdd);
+  resetValidation(modalAdd);
+  
+  openModal(modalAdd);
 });
 
-formAdd.addEventListener('submit', formAddSubmitHandler);
+formAdd.addEventListener('submit', handleAddFormSubmit);
 
 
 // Закрытие модальных окон по клику на "Х"
 closeButtons.forEach(function (button) {
   button.addEventListener('click', evt => {
-    modalToggle(evt.target.closest('.modal'));
+    closeModal(evt.target.closest('.modal'));
     // evt.stopPropagation();
   });
 });
@@ -188,7 +188,7 @@ closeButtons.forEach(function (button) {
 modalOverlays.forEach(function (modal) {
   modal.addEventListener('mousedown', evt => {
     if (!evt.target.closest('.modal__container')) {
-      modalToggle(evt.currentTarget);
+      closeModal(evt.currentTarget);
     }
   });
 });
