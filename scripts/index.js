@@ -12,7 +12,7 @@ const formEdit = modalEdit.querySelector('.modal__container');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formAdd = modalAdd.querySelector('.modal__container');
 const modalOverlays = Array.from(document.querySelectorAll('.modal'));
-const forms = Array.from(document.forms);
+// const forms = Array.from(document.forms);
 
 // Данные полей форм
 const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
