@@ -32,7 +32,7 @@ const job = profile.querySelector('.profile__profession');
 
 
 // Функция-обработчик отправки формы редактирования профиля
-function handleEditFormSubmit(evt) {
+const handleEditFormSubmit = (evt) => {
   evt.preventDefault(); // Отменяем стандартную отправку формы.
 
   name.textContent = nameInput.value;
@@ -43,7 +43,7 @@ function handleEditFormSubmit(evt) {
 
 
 // Функция-обработчик отправки формы добавления карточек
-function handleAddFormSubmit(evt) {
+const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
 
   addCard(placeInput.value, linkInput.value, '.card-template');
@@ -55,7 +55,7 @@ function handleAddFormSubmit(evt) {
 }
 
 // Функция добавления карточки в контейнер
-function addCard(name, link, cardSelector) {
+const addCard = (name, link, cardSelector) => {
   const card = new Card(name, link, cardSelector);
   const cardElement = card.generateCard();
 
@@ -71,10 +71,19 @@ initialCards.forEach(item => {
 
 
 // Запускаем валидацию форм
-forms.forEach((formElement) => {
-  const formValidator = new FormValidator(objectOfValidation, formElement);
-  formValidator.enableValidation();
-});
+// forms.forEach((formElement) => {
+//   const formValidator = new FormValidator(objectOfValidation, formElement);
+//   formValidator.enableValidation();
+// });
+
+// (Для ревью) Запускаю валидацию не вышеуказанным способом, а по отдельности, чтобы в дальнейшем 
+// можно было обратиться к каждому экземпляру отдельно (для возможности сброса валидации)
+
+const formEditValidator = new FormValidator(objectOfValidation, formEdit);
+formEditValidator.enableValidation();
+
+const formAddValidator = new FormValidator(objectOfValidation, formAdd);
+formAddValidator.enableValidation();
 
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
@@ -83,7 +92,7 @@ editButton.addEventListener('click', () => {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
 
-  // resetValidation(modalEdit, objectOfValidation);
+  formEditValidator.resetValidation();
 
   openModal(modalEdit);
 });
@@ -96,7 +105,7 @@ addButton.addEventListener('click', () => {
   // При открытии модального окна очищаем поля формы
   formAdd.reset();
 
-  // resetValidation(modalAdd, objectOfValidation);
+  formAddValidator.resetValidation();
   
   openModal(modalAdd);
 });

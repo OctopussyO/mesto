@@ -4,7 +4,7 @@ const modalCaption = modalEnlarge.querySelector('.modal__image-caption');
 
 // Функция открытия модального окна, добавляющая возможность закрытия модального 
 // окна по нажатию клавиши "Escape"
-function openModal(modal) {
+const openModal = (modal) => {
   modal.classList.add('modal_active');
   document.body.addEventListener('keydown', handleEscape);
 }
@@ -12,14 +12,14 @@ function openModal(modal) {
 
 // Функция закрытия модального окна, убирающая возможность закрытия модального 
 // окна по нажатию клавиши "Escape"
-function closeModal(modal) {
+const closeModal = (modal) => {
   modal.classList.remove('modal_active');
   document.body.removeEventListener('keydown', handleEscape);
 }
 
 
 // Функция, вызывающая закрытие модального окна по нажатию клавиши "Escape"
-function handleEscape(evt) {
+const handleEscape = (evt) => {
   if (evt.key === 'Escape') {
     closeModal(document.querySelector('.modal_active'));
   }
@@ -27,7 +27,7 @@ function handleEscape(evt) {
 
 
 // Метод увеличения карточек
-function enlargeImage(card) {
+const enlargeImage = (card) => {
   const cardCaption = card.querySelector('.card__heading');
   const cardImage = card.querySelector('.card__image');
 
@@ -40,4 +40,4 @@ function enlargeImage(card) {
 
 
 
-export { enlargeImage, openModal, closeModal, handleEscape }
+export { enlargeImage, openModal, closeModal }

@@ -27,3 +27,4 @@ const initialCards = [
 
 
 export { initialCards };
+// Не использую export default, потому что предполагаю, что какие-то ещё данные могут быть тут
