@@ -17,28 +17,39 @@ class Card {
     return cardElement;
   }
 
+  _handleLike(evt) {
+    evt.currentTarget.classList.toggle('card__button_active');
+  }
+  
+  _handleEnlarge(evt) {
+    enlargeImage(evt.currentTarget.closest('.card'));
+  }
+
+  _handleDelete(evt) {
+    evt.target.closest('.card').remove();
+  }
+
   // Метод добавления слушателей событий на кнопки карточки
   _setEventListeners() {
     // Добавляем возможность ставить лайки
     this._element.querySelector('.card__button_act_like').addEventListener('click', evt => {
-      evt.currentTarget.classList.toggle('card__button_active')
+      this._handleLike(evt);
     });
   
     // Добавляем возможность увеличения картинки
     this._element.querySelector('.card__button_act_enlarge-image').addEventListener('click', evt =>{
-      enlargeImage(evt.currentTarget.closest('.card'));
+      this._handleEnlarge(evt);      
     });
   
     //Добавляем возможность удаления карточки
     this._element.querySelector('.card__button_act_delete').addEventListener('click', evt => {
-      evt.target.closest('.card').remove();
+      this._handleDelete(evt);
     });
   }
 
 
   // Публичный метод генерации карточки
   generateCard() {
-    console.log(this._element)
     this._element = this._getTemplate();
     this._setEventListeners();
 
