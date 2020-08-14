@@ -1,5 +1,5 @@
 // Объект валидации
-objectOfValidation = {
+const objectOfValidation = {
   formSelector: 'form.modal__container',
   inputSelector: '.modal__input',
   submitButtonSelector: '.modal__save-button',
@@ -116,3 +116,4 @@ const resetValidation = (modalElement, {inputSelector, errorClass, submitButtonS
 
 // Запускаем валидацию форм
 enableValidation (objectOfValidation);
+
