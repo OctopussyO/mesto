@@ -1,6 +1,7 @@
-import Card from './Card.js';
 import { initialCards } from './data.js';
-import { openModal, closeModal, handleEscape } from './utils.js';
+import { openModal, closeModal } from './utils.js';
+import Card from './Card.js';
+import { FormValidator, objectOfValidation } from './FormValidator.js';
 
 
 // Обёртки
@@ -11,6 +12,7 @@ const formEdit = modalEdit.querySelector('.modal__container');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formAdd = modalAdd.querySelector('.modal__container');
 const modalOverlays = Array.from(document.querySelectorAll('.modal'));
+const forms = Array.from(document.forms);
 
 // Данные полей форм
 const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
@@ -44,7 +46,7 @@ function handleEditFormSubmit(evt) {
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
 
-  renderCard(addCard(placeInput.value, linkInput.value));
+  addCard(placeInput.value, linkInput.value, '.card-template');
 
   closeModal(modalAdd);
   
@@ -52,14 +54,28 @@ function handleAddFormSubmit(evt) {
   formAdd.reset();
 }
 
-
-// Добавляем исходные карточки
-initialCards.forEach(item => {
-  const card = new Card(item.name, item.link, '.card-template');
+// Функция добавления карточки в контейнер
+function addCard(name, link, cardSelector) {
+  const card = new Card(name, link, cardSelector);
   const cardElement = card.generateCard();
 
   cardsContainer.prepend(cardElement);
+}
+
+
+
+// Добавляем исходные карточки
+initialCards.forEach(item => {
+  addCard(item.name, item.link, '.card-template');
 });
+
+
+// Запускаем валидацию форм
+forms.forEach((formElement) => {
+  const formValidator = new FormValidator(objectOfValidation, formElement);
+  formValidator.enableValidation();
+});
+
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
 editButton.addEventListener('click', () => {
@@ -67,7 +83,7 @@ editButton.addEventListener('click', () => {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
 
-  resetValidation(modalEdit, objectOfValidation);
+  // resetValidation(modalEdit, objectOfValidation);
 
   openModal(modalEdit);
 });
@@ -80,7 +96,7 @@ addButton.addEventListener('click', () => {
   // При открытии модального окна очищаем поля формы
   formAdd.reset();
 
-  resetValidation(modalAdd, objectOfValidation);
+  // resetValidation(modalAdd, objectOfValidation);
   
   openModal(modalAdd);
 });

@@ -1,14 +1,111 @@
-// // Объект валидации
-// const objectOfValidation = {
-//   formSelector: 'form.modal__container',
-//   inputSelector: '.modal__input',
-//   submitButtonSelector: '.modal__save-button',
-//   activeButtonClass: 'modal__save-button_unblocked',
-//   inactiveButtonClass: 'modal__save-button_blocked',
-//   inputValidClass: 'modal__input_valid',
-//   inputErrorClass: 'modal__input_invalid',
-//   errorClass: 'modal__error'
-// };
+// Объект валидации
+const objectOfValidation = {
+  formSelector: 'form.modal__container',
+  inputSelector: '.modal__input',
+  submitButtonSelector: '.modal__save-button',
+  activeButtonClass: 'modal__save-button_unblocked',
+  inactiveButtonClass: 'modal__save-button_blocked',
+  inputValidClass: 'modal__input_valid',
+  inputErrorClass: 'modal__input_invalid',
+  errorClass: 'modal__error'
+};
+
+
+class FormValidator {
+  constructor(data, formElement) {
+    this._formSelector = data.formSelector;
+    this._inputSelector = data.inputSelector;
+    this._submitButtonSelector = data.submitButtonSelector;
+    this._activeButtonClass = data.activeButtonClass;
+    this._inactiveButtonClass = data.inactiveButtonClass;
+    this._inputValidClass = data.inputValidClass;
+    this._inputErrorClass = data.inputErrorClass;
+    this._errorClass = data.errorClass;
+    this._formElement = formElement;
+  }
+
+  // Функция проверки валидности поля ввода
+  _isValidField(inputElement) {
+    return inputElement.validity.valid;
+  };
+
+  // Функция проверки валидности формы
+  _isValidForm() {
+    return this._inputs.some((inputElement) => !inputElement.validity.valid);
+  };
+
+  // Функция, добавляющая состояние валидного поля ввода
+  _addValidInputState(inputElement, errorElement) {
+    errorElement.textContent = '';
+    console.log()
+    inputElement.classList.add(this._inputValidClass);
+    inputElement.classList.remove(this._inputErrorClass);
+  }
+
+  // Функция, добавляющая состояние невалидного поля ввода
+  _addInvalidInputState(inputElement, errorElement) {
+    errorElement.textContent = inputElement.validationMessage;
+    inputElement.classList.remove(this._inputValidClass);
+    inputElement.classList.add(this._inputErrorClass);
+  }
+
+  // Функция, разблокирующая кнопку отправки формы
+  _addValidSubmitState () {
+    this._buttonElement.disabled = false;
+    this._buttonElement.classList.add(this._activeButtonClass);
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+  }
+
+  // Функция, блокирующая кнопку отправки формы
+  _addInvalidSubmitState () {
+    this._buttonElement.disabled = true;
+    this._buttonElement.classList.remove(this._activeButtonClass);
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+  }
+
+  // Функция-обработчик валидности поля ввода
+  _handleInput (inputElement) {
+    const errorElement = this._formElement.querySelector(`.${this._errorClass}_in_${inputElement.name}`);
+    if (this._isValidField(inputElement)) {
+
+      this._addValidInputState(inputElement, errorElement);
+    } else {
+
+      this._addInvalidInputState(inputElement, errorElement);
+    }
+  }
+
+  // Функция-обработчик кнопки
+  _handleButton() {
+    if (!this._isValidForm()) {
+      this._addValidSubmitState();
+    } else {
+      this._addInvalidSubmitState();
+    }
+  }
+
+  // Публичный метод проверки валидности формы
+  enableValidation() {
+    // Отменяем стандартное поведение формы
+    this._formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+
+    this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+
+    this._inputs.forEach((inputElement) => {
+      
+      inputElement.addEventListener('input', () => {
+        console.log(this)
+        this._handleInput(inputElement);
+        this._handleButton();
+      });
+    });
+  }  
+}
+
+export {FormValidator, objectOfValidation};
 
 // // Функция проверки валидности поля ввода
 // const isValidField = inputElement => inputElement.validity.valid;
@@ -72,7 +169,7 @@
 
 //   const inputs = Array.from(formElement.querySelectorAll(inputSelector));
 //   const buttonSubmit = formElement.querySelector(submitButtonSelector);
-  
+
 //   inputs.forEach((inputElement) => {
 
 //     inputElement.addEventListener('input', (evt) => {
@@ -84,7 +181,7 @@
 
 // // Функция валидации форм
 // const enableValidation = ({formSelector, ...settings}) => {
-  
+
 //   // Все формы
 //   const forms = Array.from(document.querySelectorAll(formSelector));
 
@@ -93,7 +190,7 @@
 //   });
 // }
 
-// // Функция "сброса" результатов предыдущей валидации (необходима для "обновления" результатов 
+// // Функция "сброса" результатов предыдущей валидации (необходима для "обновления" результатов
 // // после закрытия формы без сохранения)
 // const resetValidation = (modalElement, {inputSelector, errorClass, submitButtonSelector, ...settings}) => {
 //   const inputs = Array.from(modalElement.querySelectorAll(inputSelector));
