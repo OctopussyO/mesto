@@ -17,55 +17,54 @@ const isValidField = inputElement => inputElement.validity.valid;
 const isValidForm = inputs => inputs.some((inputElement) => !inputElement.validity.valid);
 
 // Функция, добавляющая состояние валидного поля ввода
-const addValidInputState = (inputElement, errorElement, inputValidClass, inputErrorClass) => {
+const addValidInputState = (inputElement, errorElement, {inputValidClass, inputErrorClass}) => {
   errorElement.textContent = '';
   inputElement.classList.add(inputValidClass);
   inputElement.classList.remove(inputErrorClass);
 }
 
 // Функция, добавляющая состояние невалидного поля ввода
-const addInvalidInputState = (inputElement, errorElement, inputValidClass, inputErrorClass) => {
+const addInvalidInputState = (inputElement, errorElement, {inputValidClass, inputErrorClass}) => {
   errorElement.textContent = inputElement.validationMessage;
   inputElement.classList.remove(inputValidClass);
   inputElement.classList.add(inputErrorClass);
 }
 
 // Функция, разблокирующая кнопку отправки формы
-const addValidSubmitState = (buttonElement, activeButtonClass, inactiveButtonClass) => {
+const addValidSubmitState = (buttonElement, {activeButtonClass, inactiveButtonClass}) => {
   buttonElement.disabled = false;
   buttonElement.classList.add(activeButtonClass);
   buttonElement.classList.remove(inactiveButtonClass);
 }
 
 // Функция, блокирующая кнопку отправки формы
-const addInvalidSubmitState = (buttonElement, activeButtonClass, inactiveButtonClass) => {
+const addInvalidSubmitState = (buttonElement, {activeButtonClass, inactiveButtonClass}) => {
   buttonElement.disabled = true;
   buttonElement.classList.remove(activeButtonClass);
   buttonElement.classList.add(inactiveButtonClass);
 }
 
 // Функция-обработчик валидности поля ввода
-const handleInput = (formElement, errorClass, inputElement, inputValidClass, inputErrorClass) => {
+const handleInput = (formElement, inputElement, {errorClass, ...settings}) => {
   const errorElement = formElement.querySelector(`.${errorClass}_in_${inputElement.name}`);
   if (isValidField(inputElement)) {
-    addValidInputState(inputElement, errorElement, inputValidClass, inputErrorClass);
+    addValidInputState(inputElement, errorElement, settings);
   } else {
-    addInvalidInputState(inputElement, errorElement, inputValidClass, inputErrorClass);
+    addInvalidInputState(inputElement, errorElement, settings);
   }
 }
 
 // Функция-обработчик кнопки
-const handleButton = (inputs, buttonElement, activeButtonClass, inactiveButtonClass) =>{
+const handleButton = (inputs, buttonElement, {...settings}) =>{
   if (!isValidForm(inputs)) {
-    addValidSubmitState(buttonElement, activeButtonClass, inactiveButtonClass);
+    addValidSubmitState(buttonElement, settings);
   } else {
-    addInvalidSubmitState(buttonElement, activeButtonClass, inactiveButtonClass);
+    addInvalidSubmitState(buttonElement, settings);
   }
 }
 
 // Функция-обработчик валиности формы
-const handleForm = (formElement, inputSelector, submitButtonSelector, errorClass, inputValidClass, 
-  inputErrorClass, activeButtonClass, inactiveButtonClass) => {
+const handleForm = (formElement, {inputSelector, submitButtonSelector, ...settings}) => {
   // Отменяем стандартное поведение формы
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -77,41 +76,39 @@ const handleForm = (formElement, inputSelector, submitButtonSelector, errorClass
   inputs.forEach((inputElement) => {
 
     inputElement.addEventListener('input', (evt) => {
-      handleInput(formElement, errorClass, inputElement, inputValidClass, inputErrorClass);
-      handleButton(inputs, buttonSubmit, activeButtonClass, inactiveButtonClass);
+      handleInput(formElement, inputElement, settings);
+      handleButton(inputs, buttonSubmit, settings);
     });
   });
 }
 
 // Функция валидации форм
-const enableValidation = ({formSelector, inputSelector, submitButtonSelector, activeButtonClass, 
-  inactiveButtonClass, inputValidClass, inputErrorClass, errorClass}) => {
+const enableValidation = ({formSelector, ...settings}) => {
   
   // Все формы
   const forms = Array.from(document.querySelectorAll(formSelector));
 
   forms.forEach((formElement) => {
-    handleForm(formElement, inputSelector, submitButtonSelector, errorClass, inputValidClass, 
-      inputErrorClass, activeButtonClass, inactiveButtonClass);
+    handleForm(formElement, settings);
   });
 }
 
 // Функция "сброса" результатов предыдущей валидации (необходима для "обновления" результатов 
 // после закрытия формы без сохранения)
-const resetValidation = (modalElement, ...rest) => {  
-  const inputs = Array.from(modalElement.querySelectorAll(objectOfValidation.inputSelector));
+const resetValidation = (modalElement, {inputSelector, errorClass, submitButtonSelector, ...settings}) => {
+  const inputs = Array.from(modalElement.querySelectorAll(inputSelector));
 
   inputs.forEach((inputElement) => {
-    const errorElement = modalElement.querySelector(`.${objectOfValidation.errorClass}_in_${inputElement.name}`);
-    addValidInputState(inputElement, errorElement, objectOfValidation.inputValidClass, objectOfValidation.inputErrorClass);
+    const errorElement = modalElement.querySelector(`.${errorClass}_in_${inputElement.name}`);
+    addValidInputState(inputElement, errorElement, settings);
   });
 
-  const buttonSubmit = modalElement.querySelector(objectOfValidation.submitButtonSelector);
+  const buttonSubmit = modalElement.querySelector(submitButtonSelector);
 
   if (modalElement.classList.contains('modal_act_edit-profile')) {
-    addValidSubmitState(buttonSubmit, objectOfValidation.activeButtonClass, objectOfValidation.inactiveButtonClass);
+    addValidSubmitState(buttonSubmit, settings);
   } else if (modalElement.classList.contains('modal_act_add-card')) {
-    addInvalidSubmitState(buttonSubmit, objectOfValidation.activeButtonClass, objectOfValidation.inactiveButtonClass);
+    addInvalidSubmitState(buttonSubmit, settings);
   }
 }
 

@@ -154,7 +154,7 @@ editButton.addEventListener('click', () => {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
 
-  resetValidation(modalEdit);
+  resetValidation(modalEdit, objectOfValidation);
 
   openModal(modalEdit);
 });
@@ -167,7 +167,7 @@ addButton.addEventListener('click', () => {
   // При открытии модального окна очищаем поля формы
   formAdd.reset();
 
-  resetValidation(modalAdd);
+  resetValidation(modalAdd, objectOfValidation);
   
   openModal(modalAdd);
 });
