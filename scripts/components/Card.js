@@ -1,4 +1,4 @@
-import { enlargeImage } from './utils.js';
+import { enlargeImage } from '../utils/utils.js';
 
 class Card {
   constructor(name, link, cardSelector) {

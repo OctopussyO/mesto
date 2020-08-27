@@ -1,7 +1,8 @@
-import { initialCards } from './data.js';
-import { openModal, closeModal } from './utils.js';
-import Card from './Card.js';
-import { FormValidator, objectOfValidation } from './FormValidator.js';
+import { initialCards, sectionSelector, cardSelector } from './utils/data.js';
+import { openModal, closeModal } from './utils/utils.js';
+import Card from './components/Card.js';
+import { FormValidator, objectOfValidation } from './components/FormValidator.js';
+import Section from './components/Section.js';
 
 
 // Обёртки
@@ -12,7 +13,6 @@ const formEdit = modalEdit.querySelector('.modal__container');
 const modalAdd = document.querySelector('.modal_act_add-card');
 const formAdd = modalAdd.querySelector('.modal__container');
 const modalOverlays = Array.from(document.querySelectorAll('.modal'));
-// const forms = Array.from(document.forms);
 
 // Данные полей форм
 const nameInput = formEdit.querySelector('.modal__input[name="modal-name"]');
@@ -54,31 +54,36 @@ const handleAddFormSubmit = (evt) => {
   formAdd.reset();
 }
 
-// Функция добавления карточки в контейнер
-const addCard = (name, link, cardSelector) => {
-  const card = new Card(name, link, cardSelector);
-  const cardElement = card.generateCard();
+// // Функция добавления карточки в контейнер
+// const addCard = (name, link, cardSelector) => {
+//   const card = new Card(name, link, cardSelector);
+//   const cardElement = card.generateCard();
 
-  cardsContainer.prepend(cardElement);
-}
+//   cardsContainer.prepend(cardElement);
+// }
 
 
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item.name, item.link, cardSelector);
+      const cardElement = card.generateCard();
+
+      cardList.addItem(cardElement);
+    }
+  }, sectionSelector
+); 
+
+cardList.renderItems();
 
 // Добавляем исходные карточки
-initialCards.forEach(item => {
-  addCard(item.name, item.link, '.card-template');
-});
+// initialCards.forEach(item => {
+//   addCard(item.name, item.link, '.card-template');
+// });
 
 
 // Запускаем валидацию форм
-// forms.forEach((formElement) => {
-//   const formValidator = new FormValidator(objectOfValidation, formElement);
-//   formValidator.enableValidation();
-// });
-
-// (Для ревью) Запускаю валидацию не вышеуказанным способом, а по отдельности, чтобы в дальнейшем 
-// можно было обратиться к каждому экземпляру отдельно (для возможности сброса валидации)
-
 const formEditValidator = new FormValidator(objectOfValidation, formEdit);
 formEditValidator.enableValidation();
 

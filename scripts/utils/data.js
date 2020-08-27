@@ -25,6 +25,7 @@ const initialCards = [
   }
 ]
 
+const sectionSelector = '.gallery';
+const cardSelector = '.card-template';
 
-export { initialCards };
-// Не использую export default, потому что предполагаю, что какие-то ещё данные могут быть тут
+export { initialCards, sectionSelector, cardSelector };
