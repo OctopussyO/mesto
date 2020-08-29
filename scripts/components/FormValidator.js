@@ -1,17 +1,4 @@
-// Объект валидации
-const objectOfValidation = {
-  formSelector: 'form.modal__container',
-  inputSelector: '.modal__input',
-  submitButtonSelector: '.modal__save-button',
-  activeButtonClass: 'modal__save-button_unblocked',
-  inactiveButtonClass: 'modal__save-button_blocked',
-  inputValidClass: 'modal__input_valid',
-  inputErrorClass: 'modal__input_invalid',
-  errorClass: 'modal__error'
-};
-
-
-class FormValidator {
+export default class FormValidator {
   constructor(data, formElement) {
     this._formSelector = data.formSelector;
     this._inputSelector = data.inputSelector;
@@ -72,7 +59,7 @@ class FormValidator {
     }
   }
 
-  // Функция-обработчик кнопки
+  // Метод-обработчик состояния кнопки
   _handleButton() {
     if (!this._isValidForm()) {
       this._addValidSubmitState();
@@ -81,6 +68,7 @@ class FormValidator {
     }
   }
 
+  
   // Публичный метод проверки валидности формы
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
@@ -114,6 +102,3 @@ class FormValidator {
     }
   }
 }
-
-export {FormValidator, objectOfValidation};
-

@@ -33,10 +33,10 @@
     <form action="#" class="modal__container" name="edit-form" method="GET" novalidate>
       <fieldset class="modal__fieldset">
         <legend class="modal__heading">Редактировать профиль</legend>
-        <input class="modal__input modal__input_valid" name="modal-name" placeholder="Имя" required type="text" minlength="2" maxlength="40" autocomplete="off">
-        <span class="modal__error modal__error_in_modal-name"></span>
-        <input class="modal__input modal__input_valid" name="modal-job" placeholder="Профессия" required type="text" minlength="2" maxlength="200" autocomplete="off">
-        <span class="modal__error modal__error_in_modal-job"></span>
+        <input class="modal__input modal__input_valid" name="name" placeholder="Имя" required type="text" minlength="2" maxlength="40" autocomplete="off">
+        <span class="modal__error modal__error_in_name"></span>
+        <input class="modal__input modal__input_valid" name="info" placeholder="Профессия" required type="text" minlength="2" maxlength="200" autocomplete="off">
+        <span class="modal__error modal__error_in_info"></span>
       </fieldset>
       <button class="modal__save-button modal__save-button_unblocked" type="submit">Сохранить</button>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
@@ -46,10 +46,10 @@
     <form action="#" class="modal__container" name="add-form" method="GET" novalidate>
       <fieldset class="modal__fieldset">
         <legend class="modal__heading">Новое место</legend>
-        <input class="modal__input modal__input_valid" name="modal-place" placeholder="Название" required type="text" minlength="1" maxlength="30" autocomplete="off">
-        <span class="modal__error modal__error_in_modal-place"></span>
-        <input class="modal__input modal__input_valid" name="modal-link" placeholder="Ссылка на картинку" required type="url" autocomplete="off">
-        <span class="modal__error modal__error_in_modal-link"></span>
+        <input class="modal__input modal__input_valid" name="place" placeholder="Название" required type="text" minlength="1" maxlength="30" autocomplete="off">
+        <span class="modal__error modal__error_in_place"></span>
+        <input class="modal__input modal__input_valid" name="link" placeholder="Ссылка на картинку" required type="url" autocomplete="off">
+        <span class="modal__error modal__error_in_link"></span>
       </fieldset>
       <button class="modal__save-button modal__save-button_blocked" disabled type="submit">Создать</button>
       <button class="modal__close-button page__button" type="button" aria-label="Закрыть"></button>
