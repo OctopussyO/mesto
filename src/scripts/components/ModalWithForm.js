@@ -38,7 +38,7 @@ export default class ModalWithForm extends Modal {
 
   // Расширение метода закрытия модального окна
   close() {
-    this._formElement.reset();
     super.close();
+    this._formElement.reset();
   }
 }
