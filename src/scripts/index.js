@@ -51,21 +51,19 @@ modalImage.setEventListeners();
 
 // Инициализируем модальное окно редактирования профиля
 const modalEdit = new ModalWithForm(
-  editModalSelector,
   (data) => {
     profile.setUserInfo(data);
     modalEdit.close();
-  }
+  }, editModalSelector
 );
 modalEdit.setEventListeners();
 
 // Инициализируем модальное окно добавления карточки
 const modalAdd = new ModalWithForm(
-  addModalSelector,
   (data) => {
     addCard(data, cardSelector);
     modalAdd.close();
-  }
+  }, addModalSelector
 );
 modalAdd.setEventListeners();
 
