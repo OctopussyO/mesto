@@ -4,8 +4,8 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
-import ModalWithImage from '../components/ModalWithImage.js';
-import ModalWithForm from '../components/ModalWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import { 
   initialCards, 
   sectionSelector, 
@@ -13,15 +13,15 @@ import {
   objectOfValidation,
   editButton,
   addButton,
-  imageModalSelector,
-  editModalSelector,
-  addModalSelector
+  imagePopupSelector,
+  editPopupSelector,
+  addPopupSelector
 } from '../utils/constants.js';
 
 
 // Обёртки форм
-const editForm = document.querySelector('.modal_act_edit-profile').querySelector('.modal__container');
-const addForm = document.querySelector('.modal_act_add-card').querySelector('.modal__container');
+const editForm = document.querySelector('.popup_act_edit-profile').querySelector('.popup__container');
+const addForm = document.querySelector('.popup_act_add-card').querySelector('.popup__container');
 
 
 // Функция добавления карточки в контейнер
@@ -29,7 +29,7 @@ const addCard = (data, cardSelector) => {
   const card = new Card({
     data: data,
     handleCardClick: (data) => {
-      modalImage.open(data)
+      popupImage.open(data)
     }
   }, cardSelector);
 
@@ -52,26 +52,26 @@ const cardList = new Section(
 cardList.renderItems();
 
 // Инициализируем модальное окно увеличения изображения
-const modalImage = new ModalWithImage(imageModalSelector);
-modalImage.setEventListeners();
+const popupImage = new PopupWithImage(imagePopupSelector);
+popupImage.setEventListeners();
 
 // Инициализируем модальное окно редактирования профиля
-const modalEdit = new ModalWithForm(
+const popupEdit = new PopupWithForm(
   (data) => {
     profile.setUserInfo(data);
-    modalEdit.close();
-  }, editModalSelector
+    popupEdit.close();
+  }, editPopupSelector
 );
-modalEdit.setEventListeners();
+popupEdit.setEventListeners();
 
 // Инициализируем модальное окно добавления карточки
-const modalAdd = new ModalWithForm(
+const popupAdd = new PopupWithForm(
   (data) => {
     addCard(data, cardSelector);
-    modalAdd.close();
-  }, addModalSelector
+    popupAdd.close();
+  }, addPopupSelector
 );
-modalAdd.setEventListeners();
+popupAdd.setEventListeners();
 
 // Инициализируем блок с данными пользователя
 const profile = new UserInfo({ 
@@ -89,14 +89,14 @@ addFormValidator.enableValidation();
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
 editButton.addEventListener('click', () => {
   // Заполняем поля формы информацией из профиля
-  modalEdit.setInitialState(profile.getUserInfo());
+  popupEdit.setInitialState(profile.getUserInfo());
   
   editFormValidator.resetValidation();
-  modalEdit.open();
+  popupEdit.open();
 });
 
 // Открываем модальное окно добавления изображений по клику на кнопку "+"
 addButton.addEventListener('click', () => {  
   addFormValidator.resetValidation();
-  modalAdd.open();
+  popupAdd.open();
 });

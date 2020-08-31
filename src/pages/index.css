@@ -6,6 +6,6 @@
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/footer/footer.css);
-@import url(../blocks/modal/modal.css);
-@import url(../blocks/modal/_act/__enlarge-image/modal_act_enlarge-image.css);
-@import url(../blocks/modal/_active/modal_active.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_act/__enlarge-image/popup_act_enlarge-image.css);
+@import url(../blocks/popup/_active/popup_active.css);

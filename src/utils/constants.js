@@ -28,14 +28,14 @@ export const initialCards = [
 
 // Объект валидации
 export const objectOfValidation = {
-  formSelector: 'form.modal__container',
-  inputSelector: '.modal__input',
-  submitButtonSelector: '.modal__save-button',
-  activeButtonClass: 'modal__save-button_unblocked',
-  inactiveButtonClass: 'modal__save-button_blocked',
-  inputValidClass: 'modal__input_valid',
-  inputErrorClass: 'modal__input_invalid',
-  errorClass: 'modal__error'
+  formSelector: 'form.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  activeButtonClass: 'popup__save-button_unblocked',
+  inactiveButtonClass: 'popup__save-button_blocked',
+  inputValidClass: 'popup__input_valid',
+  inputErrorClass: 'popup__input_invalid',
+  errorClass: 'popup__error'
 };
 
 // Кнопки
@@ -43,8 +43,8 @@ export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
 
 // Селекторы
-export const imageModalSelector = '.modal_act_enlarge-image';
-export const editModalSelector = '.modal_act_edit-profile';
-export const addModalSelector = '.modal_act_add-card';
+export const imagePopupSelector = '.popup_act_enlarge-image';
+export const editPopupSelector = '.popup_act_edit-profile';
+export const addPopupSelector = '.popup_act_add-card';
 export const sectionSelector = '.gallery';
 export const cardSelector = '.card-template';
