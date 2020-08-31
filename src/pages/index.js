@@ -1,11 +1,11 @@
 import '../pages/index.css';
 
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import Section from './components/Section.js';
-import UserInfo from './components/UserInfo.js';
-import ModalWithImage from './components/ModalWithImage.js';
-import ModalWithForm from './components/ModalWithForm.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import ModalWithImage from '../components/ModalWithImage.js';
+import ModalWithForm from '../components/ModalWithForm.js';
 import { 
   initialCards, 
   sectionSelector, 
@@ -13,19 +13,23 @@ import {
   objectOfValidation,
   editButton,
   addButton,
-  editForm,
-  addForm,
   imageModalSelector,
   editModalSelector,
   addModalSelector
-} from './utils/constants.js';
+} from '../utils/constants.js';
+
+
+// Обёртки форм
+const editForm = document.querySelector('.modal_act_edit-profile').querySelector('.modal__container');
+const addForm = document.querySelector('.modal_act_add-card').querySelector('.modal__container');
+
 
 // Функция добавления карточки в контейнер
 const addCard = (data, cardSelector) => {
   const card = new Card({
     data: data,
-    handleCardClick: (elem) => {
-      modalImage.open(elem)
+    handleCardClick: (data) => {
+      modalImage.open(data)
     }
   }, cardSelector);
 

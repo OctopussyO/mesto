@@ -1,6 +1,7 @@
 export default class Modal {
   constructor(modalSelector) {
     this._modalElement = document.querySelector(modalSelector);
+    this._escListener = this._handleEscClose.bind(this);
   }
 
   // Метод-обработчик клика на "Escape"
@@ -25,12 +26,12 @@ export default class Modal {
   // Метод открытия модального окна
   open() {
     this._modalElement.classList.add('modal_active');
-    document.body.addEventListener('keydown', this._handleEscape);
+    document.body.addEventListener('keydown', this._escListener);
   }
 
   // Метод закрытия модального окна
   close() {
     this._modalElement.classList.remove('modal_active');
-    document.body.removeEventListener('keydown', this._handleEscape);
+    document.body.removeEventListener('keydown', this._escListener);
   }
 }

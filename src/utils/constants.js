@@ -38,10 +38,6 @@ export const objectOfValidation = {
   errorClass: 'modal__error'
 };
 
-// Обёртки форм
-export const editForm = document.querySelector('.modal_act_edit-profile').querySelector('.modal__container');
-export const addForm = document.querySelector('.modal_act_add-card').querySelector('.modal__container');
-
 // Кнопки
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');

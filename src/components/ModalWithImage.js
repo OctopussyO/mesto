@@ -8,12 +8,10 @@ export default class ModalWithImage extends Modal {
   }
 
   // Расширение метода открытия модального окна
-  open(cardElement) {
-    const cardCaption = cardElement.querySelector('.card__heading');
-    const cardImage = cardElement.querySelector('.card__image');
-    this._modalCaption.textContent = cardCaption.textContent;
-    this._modalImage.src = cardImage.src;
-    this._modalImage.alt = cardImage.alt;
+  open(data) {
+    this._modalCaption.textContent = data.place;
+    this._modalImage.src = data.link;
+    this._modalImage.alt = `${data.place}, фотография`;
 
     super.open();
   }

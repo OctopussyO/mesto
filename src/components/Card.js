@@ -22,11 +22,6 @@ export default class Card {
   _handleLike(evt) {
     evt.currentTarget.classList.toggle('card__button_active');
   }
-  
-  // Метод-обработчик клика по изображению
-  _handleEnlarge() {
-    this._handleCardClick(this._element);
-  }
 
   // Метод-обработчик кнопки "х"
   _handleDelete(evt) {
@@ -45,7 +40,7 @@ export default class Card {
   
     // Добавляем возможность увеличения картинки
     this._element.querySelector('.card__button_act_enlarge-image').addEventListener('click', element =>{
-      this._handleEnlarge();     
+      this._handleCardClick({ place:this._place, link:this._link });  
     });
   
     //Добавляем возможность удаления карточки
