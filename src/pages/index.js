@@ -6,8 +6,9 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import Api from '../components/Api.js';
 import { 
-  initialCards, 
+  // initialCards, 
   sectionSelector, 
   cardSelector, 
   objectOfValidation,
@@ -37,12 +38,32 @@ const addCard = (data, cardSelector) => {
   cardList.addItem(cardElement);
 }
 
+const handleAnswerError = (err) => {
+  console.log(err);
+}
 
+
+
+// // Инициализируем контейнер с карточками
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (item) => {
+//       addCard({ place: item.name, link: item.link }, cardSelector);
+//     }
+//   }, sectionSelector
+// ); 
+// // Наполняем контейнер исходными карточками
+// cardList.renderItems();
+
+
+
+// *****ВНИМАНИЕ***** Это наверняка надо убрать, но как ?!
 
 // Инициализируем контейнер с карточками
 const cardList = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       addCard({ place: item.name, link: item.link }, cardSelector);
     }
@@ -59,6 +80,7 @@ popupImage.setEventListeners();
 const popupEdit = new PopupWithForm(
   (data) => {
     profile.setUserInfo(data);
+    api.saveUserInfo({ name: data.name, about: data.info })
     popupEdit.close();
   }, editPopupSelector
 );
@@ -85,6 +107,45 @@ editFormValidator.enableValidation();
 
 const addFormValidator = new FormValidator(objectOfValidation, addForm);
 addFormValidator.enableValidation();
+
+// Инициализируем API
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-15',
+  headers: {
+    authorization: '584f4afd-78a5-47f8-908c-ac61484f6bb9',
+    'Content-Type': 'application/json'
+  }
+})
+
+// Получаем данные пользователя с сервера и заполняем поля профиля
+api.getUserInfo()
+  .then((data) => {
+    console.log(data)
+    profile.setUserInfo({name: data.name, info: data.about});
+  })
+  .catch(handleAnswerError);
+
+api.getInitialCards()
+  .then(data => {
+    console.log(data)
+    data.forEach((item) => {
+      addCard({ place: item.name, link: item.link }, cardSelector);
+    })
+  })
+  .catch(handleAnswerError);
+
+
+  // // Инициализируем контейнер с карточками
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (item) => {
+//       addCard({ place: item.name, link: item.link }, cardSelector);
+//     }
+//   }, sectionSelector
+// ); 
+// // Наполняем контейнер исходными карточками
+// cardList.renderItems();
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
 editButton.addEventListener('click', () => {

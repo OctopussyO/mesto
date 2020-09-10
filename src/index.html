@@ -31,12 +31,14 @@
     </footer>
   </div>
   <div class="popup popup_act_edit-profile">
-    <form action="#" class="popup__container" name="edit-form" method="GET" novalidate>
+    <form action="#" class="popup__container popup__container_with_form" name="edit-form" method="GET" novalidate>
       <fieldset class="popup__fieldset">
         <legend class="popup__heading">Редактировать профиль</legend>
-        <input class="popup__input popup__input_valid" name="name" placeholder="Имя" required type="text" minlength="2" maxlength="40" autocomplete="off">
+        <input class="popup__input popup__input_valid" 
+          name="name" placeholder="Имя" required type="text" minlength="2" maxlength="40" autocomplete="off">
         <span class="popup__error popup__error_in_name"></span>
-        <input class="popup__input popup__input_valid" name="info" placeholder="Профессия" required type="text" minlength="2" maxlength="200" autocomplete="off">
+        <input class="popup__input popup__input_valid"
+          name="info" placeholder="Профессия" required type="text" minlength="2" maxlength="200" autocomplete="off">
         <span class="popup__error popup__error_in_info"></span>
       </fieldset>
       <button class="popup__save-button popup__save-button_unblocked" type="submit">Сохранить</button>
@@ -44,12 +46,14 @@
     </form>
   </div>
   <div class="popup popup_act_add-card">
-    <form action="#" class="popup__container" name="add-form" method="GET" novalidate>
+    <form action="#" class="popup__container popup__container_with_form" name="add-form" method="GET" novalidate>
       <fieldset class="popup__fieldset">
         <legend class="popup__heading">Новое место</legend>
-        <input class="popup__input popup__input_valid" name="place" placeholder="Название" required type="text" minlength="1" maxlength="30" autocomplete="off">
+        <input class="popup__input popup__input_valid"
+          name="place" placeholder="Название" required type="text" minlength="1" maxlength="30" autocomplete="off">
         <span class="popup__error popup__error_in_place"></span>
-        <input class="popup__input popup__input_valid" name="link" placeholder="Ссылка на картинку" required type="url" autocomplete="off">
+        <input class="popup__input popup__input_valid"
+          name="link" placeholder="Ссылка на картинку" required type="url" autocomplete="off">
         <span class="popup__error popup__error_in_link"></span>
       </fieldset>
       <button class="popup__save-button popup__save-button_blocked" disabled type="submit">Создать</button>
