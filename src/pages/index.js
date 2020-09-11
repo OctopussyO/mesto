@@ -25,38 +25,38 @@ const editForm = document.querySelector('.popup_act_edit-profile').querySelector
 const addForm = document.querySelector('.popup_act_add-card').querySelector('.popup__container');
 
 
-// Функция добавления карточки в контейнер
-const addCard = (data, cardSelector) => {
-  const card = new Card({
-    data: data,
-    handleCardClick: (data) => {
-      popupImage.open(data)
-    }
-    // handleLikeClick: (likes) => {
-    //   if (likes.indexOf(userId) !== -1) {
+// // Функция добавления карточки в контейнер
+// const addCard = (data, cardSelector) => {
+//   const card = new Card({
+//     data: data,
+//     handleCardClick: (data) => {
+//       popupImage.open(data)
+//     }
+//     // handleLikeClick: (likes) => {
+//     //   if (likes.indexOf(userId) !== -1) {
 
-    //   }
-    // }
-  }, cardSelector);
+//     //   }
+//     // }
+//   }, cardSelector);
 
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
-}
+//   const cardElement = card.generateCard();
+//   cardList.addItem(cardElement);
+// }
 
-const handleAnswerError = (err) => {
-  console.log(err);
-}
+// const handleAnswerError = (err) => {
+//   console.log(err);
+// }
 
 
-// Инициализируем контейнер с карточками
-const cardList = new Section(
-  {
-    items: [],
-    renderer: (item) => {
-      addCard(item, cardSelector);
-    }
-  }, sectionSelector
-); 
+// // Инициализируем контейнер с карточками
+// const cardList = new Section(
+//   {
+//     items: [],
+//     renderer: (item) => {
+//       addCard(item, cardSelector);
+//     }
+//   }, sectionSelector
+// ); 
 
 // Инициализируем модальное окно увеличения изображения
 const popupImage = new PopupWithImage(imagePopupSelector);
@@ -72,15 +72,15 @@ const popupEdit = new PopupWithForm(
 );
 popupEdit.setEventListeners();
 
-// Инициализируем модальное окно добавления карточки
-const popupAdd = new PopupWithForm(
-  (data) => {
-    addCard({ name: data.place, link: data.link, likes: [] }, cardSelector);
-    popupAdd.close();
-    api.saveNewItem({ name: data.place, link: data.link });
-  }, addPopupSelector
-);
-popupAdd.setEventListeners();
+// // Инициализируем модальное окно добавления карточки
+// const popupAdd = new PopupWithForm(
+//   (data) => {
+//     addCard({ name: data.place, link: data.link, likes: [] }, cardSelector);
+//     popupAdd.close();
+//     api.saveNewItem({ name: data.place, link: data.link });
+//   }, addPopupSelector
+// );
+// popupAdd.setEventListeners();
 
 // const popupAvatar = new PopupWithForm(
 //   (data) => {
@@ -110,22 +110,22 @@ const api = new Api({
   }
 })
 
-// Получаем данные пользователя с сервера и заполняем поля профиля
-api.getUserData()
-  .then((data) => {
-    console.log(data)
-    profile.setUserInfo({name: data.name, info: data.about});
-  })
-  .catch(handleAnswerError);
+// // Получаем данные пользователя с сервера и заполняем поля профиля
+// api.getUserData()
+//   .then((data) => {
+//     console.log(data)
+//     profile.setUserInfo({name: data.name, info: data.about});
+//   })
+//   .catch(handleAnswerError);
 
 
-// Получаем карточки с сервера и наполняем контейнер
-api.getData()
-  .then(data => {
-    console.log(data)
-    cardList.renderItems(data);
-  })
-  .catch(handleAnswerError);
+// // Получаем карточки с сервера и наполняем контейнер
+// api.getData()
+//   .then(data => {
+//     console.log(data)
+//     cardList.renderItems(data);
+//   })
+//   .catch(handleAnswerError);
 
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
@@ -137,8 +137,85 @@ editButton.addEventListener('click', () => {
   popupEdit.open();
 });
 
-// Открываем модальное окно добавления изображений по клику на кнопку "+"
-addButton.addEventListener('click', () => {  
-  addFormValidator.resetValidation();
-  popupAdd.open();
-});
+// // Открываем модальное окно добавления изображений по клику на кнопку "+"
+// addButton.addEventListener('click', () => {  
+//   addFormValidator.resetValidation();
+//   popupAdd.open();
+// });
+
+
+Promise.all([api.getData(), api.getUserData()])
+  .then(([initialCards, userData]) => {
+    // console.log(initialCards, userData);
+    profile.setUserInfo({name: userData.name, info: userData.about});
+
+    const addCard = (data, cardSelector) => {
+      const card = new Card({
+        data: data,
+        handleCardClick: (data) => {
+          popupImage.open(data)
+        },
+        handleLikeClick: () => {     
+          if (!card.likes.some(item => item._id === userData._id)) {
+            return api.likeItem(data._id)
+          } else {
+            return api.unlikeItem(data._id)
+          }
+        }
+      }, cardSelector);
+    
+      const cardElement = card.generateCard();
+
+      if (card.likes.some(item => item._id === userData._id)) {
+        cardElement.querySelector('.card__button_act_like').classList.add('card__button_active');
+      }
+  
+
+      cardList.addItem(cardElement);
+    }
+
+    const cardList = new Section(
+      {
+        items: initialCards,
+        renderer: (item) => {
+          addCard(item, cardSelector);
+        }
+      }, sectionSelector
+    ); 
+    cardList.renderItems();
+
+    const popupAdd = new PopupWithForm(
+      (data) => {
+        // addCard({ name: data.place, link: data.link, likes: [] }, cardSelector);
+        api.saveNewItem({ name: data.place, link: data.link }).then(data => {
+          addCard(data, cardSelector)
+          popupAdd.close();
+        });
+      }, addPopupSelector
+    );
+    popupAdd.setEventListeners();
+
+    // Открываем модальное окно добавления изображений по клику на кнопку "+"
+    addButton.addEventListener('click', () => {  
+      addFormValidator.resetValidation();
+      popupAdd.open();
+    });
+  })
+
+//   // Функция добавления карточки в контейнер
+// const addCard = (data, cardSelector) => {
+//   const card = new Card({
+//     data: data,
+//     handleCardClick: (data) => {
+//       popupImage.open(data)
+//     }
+//     // handleLikeClick: (likes) => {
+//     //   if (likes.indexOf(userId) !== -1) {
+
+//     //   }
+//     // }
+//   }, cardSelector);
+
+//   const cardElement = card.generateCard();
+//   cardList.addItem(cardElement);
+// }

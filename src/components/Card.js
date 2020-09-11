@@ -2,7 +2,7 @@ export default class Card {
   constructor({ data, handleCardClick, handleLikeClick }, cardSelector) {
     this._place = data.name;
     this._link = data.link;
-    this._likes = data.likes;
+    this.likes = data.likes;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
 
@@ -23,7 +23,16 @@ export default class Card {
   // Метод-обработчик кнопки "like"
   _handleLike(evt) {
     evt.currentTarget.classList.toggle('card__button_active');
-    this._handleLikeClick(this._likes);
+    this._handleLikeClick()
+    .then((data) => {
+      this.likes = data.likes;
+      this._setLikesQuantity();
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+    // this._setLikesQuantity();
+    // evt.currentTarget.classList.toggle('card__button_active');
   }
 
   // Метод-обработчик кнопки "х"
@@ -52,6 +61,9 @@ export default class Card {
     });
   }
 
+  _setLikesQuantity() {
+    this._element.querySelector('.card__likes_quantity').textContent = this.likes.length;
+  }
 
   // Публичный метод генерации карточки
   generateCard() {
@@ -64,7 +76,7 @@ export default class Card {
     cardImage.src = this._link;
     cardImage.alt = `${this._place}, фотография`;
     this._element.querySelector('.card__heading').textContent = this._place;
-    this._element.querySelector('.card__likes_quantity').textContent = this._likes.length;
+    this._setLikesQuantity();
 
     return this._element;
   }
