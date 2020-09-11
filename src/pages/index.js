@@ -32,6 +32,11 @@ const addCard = (data, cardSelector) => {
     handleCardClick: (data) => {
       popupImage.open(data)
     }
+    // handleLikeClick: (likes) => {
+    //   if (likes.indexOf(userId) !== -1) {
+
+    //   }
+    // }
   }, cardSelector);
 
   const cardElement = card.generateCard();
@@ -43,34 +48,15 @@ const handleAnswerError = (err) => {
 }
 
 
-
-// // Инициализируем контейнер с карточками
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (item) => {
-//       addCard({ place: item.name, link: item.link }, cardSelector);
-//     }
-//   }, sectionSelector
-// ); 
-// // Наполняем контейнер исходными карточками
-// cardList.renderItems();
-
-
-
-// *****ВНИМАНИЕ***** Это наверняка надо убрать, но как ?!
-
 // Инициализируем контейнер с карточками
 const cardList = new Section(
   {
     items: [],
     renderer: (item) => {
-      addCard({ place: item.name, link: item.link }, cardSelector);
+      addCard(item, cardSelector);
     }
   }, sectionSelector
 ); 
-// Наполняем контейнер исходными карточками
-cardList.renderItems();
 
 // Инициализируем модальное окно увеличения изображения
 const popupImage = new PopupWithImage(imagePopupSelector);
@@ -80,8 +66,8 @@ popupImage.setEventListeners();
 const popupEdit = new PopupWithForm(
   (data) => {
     profile.setUserInfo(data);
-    api.saveUserInfo({ name: data.name, about: data.info })
     popupEdit.close();
+    api.saveUserData({ name: data.name, about: data.info })
   }, editPopupSelector
 );
 popupEdit.setEventListeners();
@@ -89,11 +75,18 @@ popupEdit.setEventListeners();
 // Инициализируем модальное окно добавления карточки
 const popupAdd = new PopupWithForm(
   (data) => {
-    addCard(data, cardSelector);
+    addCard({ name: data.place, link: data.link, likes: [] }, cardSelector);
     popupAdd.close();
+    api.saveNewItem({ name: data.place, link: data.link });
   }, addPopupSelector
 );
 popupAdd.setEventListeners();
+
+// const popupAvatar = new PopupWithForm(
+//   (data) => {
+
+//   }
+// )
 
 // Инициализируем блок с данными пользователя
 const profile = new UserInfo({ 
@@ -118,34 +111,22 @@ const api = new Api({
 })
 
 // Получаем данные пользователя с сервера и заполняем поля профиля
-api.getUserInfo()
+api.getUserData()
   .then((data) => {
     console.log(data)
     profile.setUserInfo({name: data.name, info: data.about});
   })
   .catch(handleAnswerError);
 
-api.getInitialCards()
+
+// Получаем карточки с сервера и наполняем контейнер
+api.getData()
   .then(data => {
     console.log(data)
-    data.forEach((item) => {
-      addCard({ place: item.name, link: item.link }, cardSelector);
-    })
+    cardList.renderItems(data);
   })
   .catch(handleAnswerError);
 
-
-  // // Инициализируем контейнер с карточками
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (item) => {
-//       addCard({ place: item.name, link: item.link }, cardSelector);
-//     }
-//   }, sectionSelector
-// ); 
-// // Наполняем контейнер исходными карточками
-// cardList.renderItems();
 
 // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
 editButton.addEventListener('click', () => {

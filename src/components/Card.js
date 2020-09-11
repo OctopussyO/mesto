@@ -1,8 +1,10 @@
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector) {
-    this._place = data.place;
+  constructor({ data, handleCardClick, handleLikeClick }, cardSelector) {
+    this._place = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
 
     this._cardSelector = cardSelector;
   }
@@ -21,6 +23,7 @@ export default class Card {
   // Метод-обработчик кнопки "like"
   _handleLike(evt) {
     evt.currentTarget.classList.toggle('card__button_active');
+    this._handleLikeClick(this._likes);
   }
 
   // Метод-обработчик кнопки "х"
@@ -58,9 +61,10 @@ export default class Card {
     // Наполняем карточку контентом
     const cardImage = this._element.querySelector('.card__image');
 
-    this._element.querySelector('.card__heading').textContent = this._place;
     cardImage.src = this._link;
     cardImage.alt = `${this._place}, фотография`;
+    this._element.querySelector('.card__heading').textContent = this._place;
+    this._element.querySelector('.card__likes_quantity').textContent = this._likes.length;
 
     return this._element;
   }

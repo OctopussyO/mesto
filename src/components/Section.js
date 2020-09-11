@@ -7,8 +7,8 @@ export default class Section {
   }
 
   // Метод отрисовки элементов
-  renderItems() {
-    this._renderedItems.forEach(item => {
+  renderItems(items = this._renderedItems) {
+    items.forEach(item => {
       this._renderer(item);
     });
   }

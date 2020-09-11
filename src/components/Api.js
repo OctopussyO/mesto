@@ -1,7 +1,7 @@
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
-    this._token = options.headers.authorization;
+    this._headers = options.headers;
     this._contentType = options.headers['Content-Type'];
   }
 
@@ -12,37 +12,40 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserInfo() {
+  getUserData() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
       .then(this._handleAnswer);
   }
 
-  getInitialCards() {
+  getData() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
       .then(this._handleAnswer)
   }
 
-  saveUserInfo(data) {
+  saveUserData(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': this._contentType
-      },
-      body: JSON.stringify(data.name, data.about)
+      headers: this._headers,
+      body: JSON.stringify(data)
     })
       .then(this._handleAnswer)
-      .then((res)=>{
-        console.log(res)
-      })
   }
+
+  saveNewItem(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(this._handleAnswer)
+  }
+
+  // likeItem() {
+  //   return fetch(`${this._baseUrl}/cards/likes`)
+  // }
   // другие методы работы с API
 }
