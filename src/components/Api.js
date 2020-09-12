@@ -35,6 +35,15 @@ export default class Api {
       .then(this._handleAnswer)
   }
 
+  saveUserAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(this._handleAnswer)
+  }
+
   saveNewItem(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -61,7 +70,6 @@ export default class Api {
   }
 
   deleteItem(cardId) {
-    console.log(cardId)
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers

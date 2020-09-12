@@ -14,9 +14,8 @@
     </header>
     <main class="page__narrow">
       <section class="profile">
-        <!-- <div class="profile__image" style="background-image: url(./images/konuhov.jpg);"></div> -->
          <div class="profile__image">
-           <button class="profile__avatar-button"></button>
+           <button class="profile__avatar-button" aria-label="Редактировать" type="button"></button>
          </div>
         <div class="profile__data">
           <h1 class="profile__name">Фёдор Конюхов</h1>
@@ -85,8 +84,8 @@
       <fieldset class="popup__fieldset">
         <legend class="popup__heading">Обновить аватар</legend>
         <input class="popup__input popup__input_valid"
-          name="avatar-link" placeholder="Ссылка на аватар" required type="url" autocomplete="off">
-        <span class="popup__error popup__error_in_avatar-link"></span>
+          name="avatar" placeholder="Ссылка на аватар" required type="url" autocomplete="off">
+        <span class="popup__error popup__error_in_avatar"></span>
       </fieldset>
       <button class="popup__save-button popup__save-button_blocked" disabled type="submit">Сохранить</button>
       <button class="popup__close-button page__button" type="button" aria-label="Закрыть"></button>

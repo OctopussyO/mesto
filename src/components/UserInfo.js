@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor({ userNameSelector, userInfoSelector }) {
+  constructor({ userNameSelector, userInfoSelector, userAvatarSelector }) {
     this._userName = document.querySelector(userNameSelector);
     this._userInfo = document.querySelector(userInfoSelector);
+    this._userAvatar = document.querySelector(userAvatarSelector);
   }
 
   // Метод получения данных из профиля
@@ -16,5 +17,9 @@ export default class UserInfo {
   setUserInfo(data) {
     this._userName.textContent = data.name;
     this._userInfo.textContent = data.info;
+  }
+
+  setUserAvatar(link) {
+    this._userAvatar.style.backgroundImage = `url(${link})`;
   }
 }

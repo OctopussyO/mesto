@@ -4,7 +4,7 @@
   height: 120px;
   border-radius: 50%;
   /* Для работы вебпака вставляю изображение здесь */
-  background-image: url(../../../images/konuhov.jpg);
+  /* background-image: url(../../../images/konuhov.jpg); */
   background-position: top;
   background-size: cover;
   -ms-flex-negative: 0;
