@@ -16,8 +16,10 @@ import {
   addButton,
   imagePopupSelector,
   editPopupSelector,
-  addPopupSelector
+  addPopupSelector,
+  confirmPopupSelector
 } from '../utils/constants.js';
+import PopupWithSubmit from '../components/PopupWithSubmit';
 
 
 // Обёртки форм
@@ -62,15 +64,7 @@ const addForm = document.querySelector('.popup_act_add-card').querySelector('.po
 const popupImage = new PopupWithImage(imagePopupSelector);
 popupImage.setEventListeners();
 
-// Инициализируем модальное окно редактирования профиля
-const popupEdit = new PopupWithForm(
-  (data) => {
-    profile.setUserInfo(data);
-    popupEdit.close();
-    api.saveUserData({ name: data.name, about: data.info })
-  }, editPopupSelector
-);
-popupEdit.setEventListeners();
+
 
 // // Инициализируем модальное окно добавления карточки
 // const popupAdd = new PopupWithForm(
@@ -146,7 +140,7 @@ editButton.addEventListener('click', () => {
 
 Promise.all([api.getData(), api.getUserData()])
   .then(([initialCards, userData]) => {
-    // console.log(initialCards, userData);
+    console.log(initialCards, userData);
     profile.setUserInfo({name: userData.name, info: userData.about});
 
     const addCard = (data, cardSelector) => {
@@ -155,12 +149,27 @@ Promise.all([api.getData(), api.getUserData()])
         handleCardClick: (data) => {
           popupImage.open(data)
         },
-        handleLikeClick: () => {     
-          if (!card.likes.some(item => item._id === userData._id)) {
-            return api.likeItem(data._id)
-          } else {
-            return api.unlikeItem(data._id)
-          }
+        handleLikeClick: () => {
+          const handleLikeClick = !card.likes.some(item => item._id === userData._id)
+            ? api.likeItem(data._id)
+            : api.unlikeItem(data._id);
+
+          handleLikeClick
+            .then((data) => {
+              card.likes = data.likes;
+              card.setLikesQuantity();
+            })
+            .catch((err) => {
+              console.log(err)
+            });
+        },
+        handleDeleteClick: () => {
+          console.log(data._id)
+          popupDelete.open();
+          popupDelete.setSubmitMethod (() => {
+            api.deleteItem(data._id);
+            popupDelete.close();
+          });
         }
       }, cardSelector);
     
@@ -169,7 +178,10 @@ Promise.all([api.getData(), api.getUserData()])
       if (card.likes.some(item => item._id === userData._id)) {
         cardElement.querySelector('.card__button_act_like').classList.add('card__button_active');
       }
-  
+
+      if (data.owner._id !== userData._id) {
+        cardElement.querySelector('.card__button_act_delete').style.display = "none";
+      }
 
       cardList.addItem(cardElement);
     }
@@ -186,11 +198,11 @@ Promise.all([api.getData(), api.getUserData()])
 
     const popupAdd = new PopupWithForm(
       (data) => {
-        // addCard({ name: data.place, link: data.link, likes: [] }, cardSelector);
-        api.saveNewItem({ name: data.place, link: data.link }).then(data => {
-          addCard(data, cardSelector)
-          popupAdd.close();
-        });
+        api.saveNewItem({ name: data.place, link: data.link })
+          .then(data => {
+            addCard(data, cardSelector)
+            popupAdd.close();
+          });
       }, addPopupSelector
     );
     popupAdd.setEventListeners();
@@ -200,22 +212,19 @@ Promise.all([api.getData(), api.getUserData()])
       addFormValidator.resetValidation();
       popupAdd.open();
     });
+
+    // Инициализируем модальное окно редактирования профиля
+    const popupEdit = new PopupWithForm(
+      (data) => {
+        profile.setUserInfo(data);
+        popupEdit.close();
+        api.saveUserData({ name: data.name, about: data.info })
+      }, editPopupSelector
+    );
+    popupEdit.setEventListeners();
+
+    // Инициализируем модальное окно подтверждения удаления
+    const popupDelete = new PopupWithSubmit(confirmPopupSelector);
+    popupDelete.setEventListeners();
   })
 
-//   // Функция добавления карточки в контейнер
-// const addCard = (data, cardSelector) => {
-//   const card = new Card({
-//     data: data,
-//     handleCardClick: (data) => {
-//       popupImage.open(data)
-//     }
-//     // handleLikeClick: (likes) => {
-//     //   if (likes.indexOf(userId) !== -1) {
-
-//     //   }
-//     // }
-//   }, cardSelector);
-
-//   const cardElement = card.generateCard();
-//   cardList.addItem(cardElement);
-// }

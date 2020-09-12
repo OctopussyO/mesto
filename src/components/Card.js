@@ -1,10 +1,11 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleLikeClick }, cardSelector) {
+  constructor({ data, handleCardClick, handleLikeClick, handleDeleteClick }, cardSelector) {
     this._place = data.name;
     this._link = data.link;
     this.likes = data.likes;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleDeleteClick = handleDeleteClick;
 
     this._cardSelector = cardSelector;
   }
@@ -23,24 +24,17 @@ export default class Card {
   // Метод-обработчик кнопки "like"
   _handleLike(evt) {
     evt.currentTarget.classList.toggle('card__button_active');
-    this._handleLikeClick()
-    .then((data) => {
-      this.likes = data.likes;
-      this._setLikesQuantity();
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-    // this._setLikesQuantity();
-    // evt.currentTarget.classList.toggle('card__button_active');
+    this._handleLikeClick();
   }
 
   // Метод-обработчик кнопки "х"
   _handleDelete(evt) {
+    this._handleDeleteClick();
     // Удаляем элемент из разметки
     evt.target.closest('.card').remove();
     // Удаляем элемент из оперативной памяти
     this._element = null;
+
   }
 
   // Метод добавления слушателей событий на кнопки карточки
@@ -61,7 +55,7 @@ export default class Card {
     });
   }
 
-  _setLikesQuantity() {
+  setLikesQuantity() {
     this._element.querySelector('.card__likes_quantity').textContent = this.likes.length;
   }
 
@@ -76,7 +70,7 @@ export default class Card {
     cardImage.src = this._link;
     cardImage.alt = `${this._place}, фотография`;
     this._element.querySelector('.card__heading').textContent = this._place;
-    this._setLikesQuantity();
+    this.setLikesQuantity();
 
     return this._element;
   }
