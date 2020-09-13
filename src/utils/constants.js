@@ -44,6 +44,8 @@ export const editAvatarButton = document.querySelector('.profile__avatar-button'
 export const addCardButton = document.querySelector('.profile__add-button');
 
 // Селекторы
+export const contentSelector = '.content';
+export const spinnerSelector = '.spinner';
 export const imagePopupSelector = '.popup_act_enlarge-image';
 export const editPopupSelector = '.popup_act_edit-profile';
 export const addPopupSelector = '.popup_act_add-card';
@@ -51,3 +53,18 @@ export const avatarPopupSelector = '.popup_act_edit-avatar';
 export const confirmPopupSelector = '.popup_act_confirm';
 export const sectionSelector = '.gallery';
 export const cardSelector = '.card-template';
+
+// Wrappers
+const content = document.querySelector(contentSelector);
+const spinner = document.querySelector(spinnerSelector);
+
+// Функция отрисовки спиннера при загрузке страницы
+export const renderLoading = (isLoading) => {
+  if (isLoading) {
+    spinner.classList.add('spinner_visible');
+    content.classList.add('content_hidden');
+  } else {
+    spinner.classList.remove('spinner_visible');
+    content.classList.remove('content_hidden');
+  }
+}

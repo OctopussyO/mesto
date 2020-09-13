@@ -22,14 +22,14 @@ export default class Card {
   }
 
   // Метод-обработчик кнопки "like"
-  _handleLike(evt) {
+  async _handleLike(evt) {
+    await this._handleLikeClick();
     evt.currentTarget.classList.toggle('card__button_active');
-    this._handleLikeClick();
   }
 
   // Метод-обработчик кнопки "х"
-  _handleDelete(evt) {
-    this._handleDeleteClick();
+  async _handleDelete(evt) {
+    await this._handleDeleteClick();
     // Удаляем элемент из разметки
     evt.target.closest('.card').remove();
     // Удаляем элемент из оперативной памяти
@@ -75,3 +75,20 @@ export default class Card {
     return this._element;
   }
 }
+
+// const bar = () => {
+//   console.log('111')
+// }
+
+// const fuck = () => new Promise((r) => {
+//   setTimeout(r, 3000);
+//   console.log('111')
+// })
+
+// async function foo () {
+//   console.log('000');
+//   await fuck();
+//   console.log('222');
+// }
+
+// foo();

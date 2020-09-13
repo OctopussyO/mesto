@@ -5,7 +5,7 @@ export default class Api {
     this._contentType = options.headers['Content-Type'];
   }
 
-  _handleAnswer(res) {
+  _handleResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -16,14 +16,14 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
-      .then(this._handleAnswer);
+      .then(this._handleResponse);
   }
 
   getData() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   saveUserData(data) {
@@ -32,7 +32,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   saveUserAvatar(data) {
@@ -41,7 +41,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   saveNewItem(data) {
@@ -50,7 +50,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(data)
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   likeItem(cardId) {
@@ -58,7 +58,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   unlikeItem(cardId) {
@@ -66,7 +66,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 
   deleteItem(cardId) {
@@ -74,6 +74,6 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(this._handleAnswer)
+      .then(this._handleResponse)
   }
 }

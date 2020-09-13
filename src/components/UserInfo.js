@@ -19,6 +19,7 @@ export default class UserInfo {
     this._userInfo.textContent = data.info;
   }
 
+  // Метод установки аватара
   setUserAvatar(link) {
     this._userAvatar.style.backgroundImage = `url(${link})`;
   }

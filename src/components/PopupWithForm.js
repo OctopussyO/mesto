@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     
     this._formElement = this._popupElement.querySelector('.popup__container');
+    this._submitButtonElement = this._formElement.querySelector('.popup__save-button');
     this._inputList = this._formElement.querySelectorAll('.popup__input');
   }
 
@@ -25,20 +26,27 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      // this._submitButtonElement.textContent = 'Сохранение...';
       this._handleFormSubmit(this._getInputValues());
     });
   }
-
+  
   // Метод, заполняющий поля формы при открытии (для формы редактирования профиля)
   setInitialState(data) {
     this._inputList.forEach((input) => {
       input.value = data[input.name];
     });
   }
+  
+  // Метод, изменяющий текст кнопки Submit
+  setSubmitText(text) {
+    this._submitButtonElement.textContent = text;
+  }
 
   // Расширение метода закрытия модального окна
   close() {
     super.close();
+    // this._submitButtonElement.textContent = 'Сохранить';
     this._formElement.reset();
   }
 }
