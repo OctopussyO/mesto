@@ -26,7 +26,6 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      // this._submitButtonElement.textContent = 'Сохранение...';
       this._handleFormSubmit(this._getInputValues());
     });
   }
@@ -46,7 +45,6 @@ export default class PopupWithForm extends Popup {
   // Расширение метода закрытия модального окна
   close() {
     super.close();
-    // this._submitButtonElement.textContent = 'Сохранить';
     this._formElement.reset();
   }
 }
