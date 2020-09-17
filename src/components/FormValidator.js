@@ -89,15 +89,15 @@ export default class FormValidator {
 
   // Публичный метод "сброса" результатов предыдущей валидации (необходима для "обновления" результатов
   // после закрытия формы без сохранения)
-  resetValidation () {
+  resetValidation (isSubmitActive) {
     this._inputs.forEach((inputElement) => {
       const errorElement = this._formElement.querySelector(`.${this._errorClass}_in_${inputElement.name}`);
       this._addValidInputState(inputElement, errorElement);
     });
 
-    if (this._formElement.name === 'edit-form') {
+    if (isSubmitActive) {
       this._addValidSubmitState(this._buttonElement);
-    } else if (this._formElement.name === 'add-form') {
+    } else {
       this._addInvalidSubmitState(this._buttonElement);
     }
   }

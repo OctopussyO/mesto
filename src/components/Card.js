@@ -24,14 +24,14 @@ export default class Card {
   // Метод-обработчик кнопки "like"
   async _handleLike(evt) {
     await this._handleLikeClick();
-    evt.currentTarget.classList.toggle('card__button_active');
+    this._element.querySelector('.card__button_act_like').classList.toggle('card__button_active');
   }
 
   // Метод-обработчик кнопки "х"
-  async _handleDelete(evt) {
+  async _handleDelete() {
     await this._handleDeleteClick();
     // Удаляем элемент из разметки
-    evt.target.closest('.card').remove();
+    this._element.remove();
     // Удаляем элемент из оперативной памяти
     this._element = null;
 
@@ -41,7 +41,7 @@ export default class Card {
   _setEventListeners() {
     // Добавляем возможность ставить лайки
     this._element.querySelector('.card__button_act_like').addEventListener('click', evt => {
-      this._handleLike(evt);
+      this._handleLike();
     });
   
     // Добавляем возможность увеличения картинки
@@ -51,7 +51,7 @@ export default class Card {
   
     //Добавляем возможность удаления карточки
     this._element.querySelector('.card__button_act_delete').addEventListener('click', evt => {
-      this._handleDelete(evt);
+      this._handleDelete();
     });
   }
 

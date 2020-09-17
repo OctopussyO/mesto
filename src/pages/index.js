@@ -30,29 +30,7 @@ const editProfileForm = document.querySelector(editPopupSelector).querySelector(
 const editAvatarForm = document.querySelector(avatarPopupSelector).querySelector('.popup__container');
 const addCardForm = document.querySelector(addPopupSelector).querySelector('.popup__container');
 
-// Функция добавления слушателей событий на кнопки страницы
-const addButtonsEventListeners = (popupEdit, popupAdd, popupAvatar) => {
-  // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
-  editProfileButton.addEventListener('click', () => {
-    // Заполняем поля формы информацией из профиля
-    popupEdit.setInitialState(profile.getUserInfo());
-    
-    editProfileFormValidator.resetValidation();
-    popupEdit.open();
-  });
 
-  // Открываем модальное окно добавления изображений по клику на кнопку "+"
-  addCardButton.addEventListener('click', () => {  
-    addCardFormValidator.resetValidation();
-    popupAdd.open();
-  });
-
-  // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
-  editAvatarButton.addEventListener('click', () => {
-    editAvatarFormValidator.resetValidation();
-    popupAvatar.open();
-  });
-}
 
 // Функция-обработчик ошибки ответа сервера
 const handleResponseError = (err) => {
@@ -116,7 +94,7 @@ Promise.all([api.getData(), api.getUserData()])
             .then((data) => {
               card.likes = data.likes;
               card.setLikesQuantity();
-              resolve();
+              Promise.resolve();
             })
             .catch(handleResponseError);
         },
@@ -201,13 +179,37 @@ Promise.all([api.getData(), api.getUserData()])
     const popupDelete = new PopupWithSubmit(confirmPopupSelector);
     popupDelete.setEventListeners();
 
-    addButtonsEventListeners(popupEdit, popupAdd, popupAvatar);
+    // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
+    editProfileButton.addEventListener('click', () => {
+      // Заполняем поля формы информацией из профиля
+      popupEdit.setInitialState(profile.getUserInfo());
+      
+      editProfileFormValidator.resetValidation(true);
+      popupEdit.open();
+    });
+
+    // Открываем модальное окно добавления изображений по клику на кнопку "+"
+    addCardButton.addEventListener('click', () => {  
+      addCardFormValidator.resetValidation(false);
+      popupAdd.open();
+    });
+
+    // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
+    editAvatarButton.addEventListener('click', () => {
+      editAvatarFormValidator.resetValidation(false);
+      popupAvatar.open();
+    });
   })
   .catch(err => {
-    const message = `Ошибка: ${err}\nПриложение работает в демонстрационном режиме!`;
-    console.log('%c%s',
-      'padding: 0 .5rem; background: crimson; font: 1.6em/1 Arial; color: white;',
-      message);
+    // const errorMessageElement = document.createElement('div');
+    // errorMessageElement.innerHTML = 
+    //   `<p>${err}</p>
+    //   <p>Приложение работает в демонстрационном режиме!</p>`;
+    // errorMessageElement.style = 'margin: 0 12px; font: 1.6em/1 Arial; color: crimson; text-align: center;';
+    // document.querySelector('.header').before(errorMessageElement);
+    
+    const errorMessage = `${err}\nПриложение работает в демонстрационном режиме!`
+    alert(errorMessage);
 
     const userId = '01';
 
@@ -304,8 +306,26 @@ Promise.all([api.getData(), api.getUserData()])
     );
     popupAvatar.setEventListeners();
 
-    addButtonsEventListeners(popupEdit, popupAdd, popupAvatar);
+    // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
+    editProfileButton.addEventListener('click', () => {
+      // Заполняем поля формы информацией из профиля
+      popupEdit.setInitialState(profile.getUserInfo());
+      
+      editProfileFormValidator.resetValidation(true);
+      popupEdit.open();
+    });
 
+    // Открываем модальное окно добавления изображений по клику на кнопку "+"
+    addCardButton.addEventListener('click', () => {  
+      addCardFormValidator.resetValidation(false);
+      popupAdd.open();
+    });
+
+    // Открываем модальное окно редактирования профиля по клику на кнопку редактирования
+    editAvatarButton.addEventListener('click', () => {
+      editAvatarFormValidator.resetValidation(false);
+      popupAvatar.open();
+    });
   })
   .finally(() => {
     renderLoading(false);
