@@ -129,7 +129,7 @@ Promise.all([api.getData(), api.getUserData()])
     // Инициализируем контейнер с карточками
     const cardList = new Section(
       {
-        items: initialCards,
+        items: initialCards.reverse(),
         renderer: (item) => {
           addCard(item, cardSelector);
         }

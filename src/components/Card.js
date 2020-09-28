@@ -75,20 +75,3 @@ export default class Card {
     return this._element;
   }
 }
-
-// const bar = () => {
-//   console.log('111')
-// }
-
-// const fuck = () => new Promise((r) => {
-//   setTimeout(r, 3000);
-//   console.log('111')
-// })
-
-// async function foo () {
-//   console.log('000');
-//   await fuck();
-//   console.log('222');
-// }
-
-// foo();
